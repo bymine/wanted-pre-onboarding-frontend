@@ -1,0 +1,93 @@
+.signin {
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.signin h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+.signin form {
+    margin-top: 30px;
+}
+
+.field {
+    margin-bottom: 30px;
+}
+
+form .input-field {
+    position: relative;
+    width: 100%;
+    height: 55px;
+}
+
+
+.input-field input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    padding: 0 15px;
+    border: 1px solid #d1d1d1;
+}
+
+.invalid input {
+    border-color: #d93025;
+}
+
+.input-field .show-hide {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #919191;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.field .error {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    color: #d93025;
+    font-size: 13px;
+    /* display: none; */
+}
+
+.error .error-icon {
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+.button input {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #4070f4;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button input:disabled {
+    background: #d1d1d1;
+    cursor: unset;
+}
+
+
+.signin .signup-link{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.signin .signup-link a{
+    text-decoration: none;
+    color:#4070f4 ;
+    font-weight: 600;
+}
