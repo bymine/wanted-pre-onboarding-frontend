@@ -3,6 +3,9 @@ import "./signIn.css";
 import { FormField } from "../../components/index";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import withAuth from "../../hoc/withAuth";
+import { toast } from "react-toastify";
+
 const SignIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -45,6 +48,7 @@ const SignIn = () => {
       .then(function (response) {
         localStorage.setItem("token", response.data["access_token"]);
         navigate("/todo", { replace: true });
+        toast.success("Sign In Succesful");
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -109,4 +113,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default withAuth(SignIn);

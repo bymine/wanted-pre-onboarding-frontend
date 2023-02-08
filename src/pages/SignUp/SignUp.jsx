@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./signUp.css";
 import { FormField } from "../../components/index";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -61,12 +62,14 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     axios
       .post("http://localhost:5000/auth/signup", {
         email,
         password: createPassword,
       })
       .then(() => {
+        toast.success("Sign Up Succesful");
         navigateSignIn();
       })
       .catch((error) => {
