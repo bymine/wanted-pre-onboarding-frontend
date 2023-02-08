@@ -1,162 +1,152 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./signUp.css";
+import { FormField } from "../../components/index";
+import axios from "axios";
+
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [emailError, setEmailError] = useState(false);
-  const [createPasswordError, setCreatePasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [createPasswordErrorMessage, setCreatePasswordErrorMessage] =
+    useState("");
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState("");
 
-  const [createInputType, setCreateInputType] = useState("password");
-  const [confirmInputType, setConfirmInputType] = useState("password");
+  const [createPasswordInputType, setCreatePasswordInputType] =
+    useState("password");
+  const [confirmPasswordInputType, setConfirmPasswordInputType] =
+    useState("password");
 
-  const emailInput = React.createRef();
-  const createPasswordInput = React.createRef();
-  const confirmPasswordInput = React.createRef();
-
-  useEffect(() => {
-    emailInput.current.addEventListener("keyup", (e) => {
-      setEmail(e.target.value);
-      checkEmail();
-    });
-
-    createPasswordInput.current.addEventListener("keyup", (e) => {
-      setCreatePassword(e.target.value);
-      checkPassword();
-      if (confirmPassword !== "") {
-        checkConfirmPassword();
-      }
-    });
-
-    confirmPasswordInput.current.addEventListener("keyup", (e) => {
-      setConfirmPassword(e.target.value);
-      checkConfirmPassword();
-    });
-  });
+  const formIsValid =
+    emailErrorMessage === "" &&
+    createPasswordErrorMessage === "" &&
+    confirmPasswordErrorMessage === "" &&
+    email !== "" &&
+    createPassword !== "" &&
+    confirmPassword !== "";
 
   function checkEmail() {
-    const emailRegex = /^[^ ]+@[^ ]+\.[a-z]/;
+    const emailRegex = /^[^ ]+@[^ ]+[a-z]/;
     if (!email.match(emailRegex)) {
-      return setEmailError(true);
+      return setEmailErrorMessage("Please enter a valid email");
     }
-    setEmailError(false);
+    setEmailErrorMessage("");
   }
 
-  function checkPassword() {
+  function checkCreatePassword() {
     const passwordRegex = /[^ ]{8,}/;
-    if (!createPassword.match(passwordRegex)) {
-      return setCreatePasswordError(true);
+
+    if (confirmPassword !== "") {
+      checkConfirmPassword();
     }
-    setCreatePasswordError(false);
+    if (!createPassword.match(passwordRegex)) {
+      return setCreatePasswordErrorMessage(
+        "Please enter at least 8 characters"
+      );
+    }
+    setCreatePasswordErrorMessage("");
   }
 
   function checkConfirmPassword() {
     if (createPassword !== confirmPassword) {
-      return setConfirmPasswordError(true);
+      return setConfirmPasswordErrorMessage("Please don't match");
     }
-    setConfirmPasswordError(false);
+    setConfirmPasswordErrorMessage("");
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios
+      .post("http://localhost:5000/auth/signup", {
+        email,
+        password: createPassword,
+      })
+      .then(() => {
+        navigateSignIn();
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          setEmailErrorMessage("The same email already exists.");
+        } else {
+          console.log("Error:", error.message);
+        }
+      });
   };
 
   function showPassword() {
-    setCreateInputType(createInputType === "text" ? "password" : "text");
+    setCreatePasswordInputType(
+      createPasswordInputType === "text" ? "password" : "text"
+    );
   }
 
-  function showConfrimPassword() {
-    setConfirmInputType(confirmInputType === "text" ? "password" : "text");
+  function showConfirmPassword() {
+    setConfirmPasswordInputType(
+      confirmPasswordInputType === "text" ? "password" : "text"
+    );
+  }
+
+  function navigateSignIn() {
+    navigate("/signin", { replace: true });
   }
 
   return (
     <div className="signup">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <div className="field">
-          <div className={`input-field ${emailError ? "invalid" : null}`}>
-            <input
-              ref={emailInput}
-              type="text"
-              placeholder="Enter your Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          {emailError && (
-            <span className="error">
-              <i className="bx bx-error-circle error-icon"></i>
-              <p className="error-text">Please enter a valid email</p>
-            </span>
-          )}
-        </div>
-        <div className="field">
-          <div
-            className={`input-field ${createPasswordError ? "invalid" : null}`}
-          >
-            <input
-              ref={createPasswordInput}
-              type={createInputType}
-              placeholder="Enter your Create Password"
-              onChange={(e) => setCreatePassword(e.target.value)}
-            />
+        <FormField
+          testId="email-input"
+          type="text"
+          placeholder="Enter your Email"
+          onChange={(e) => setEmail(e.target.value)}
+          validator={checkEmail}
+          errorMessage={emailErrorMessage}
+        />
+        <FormField
+          testId="password-input"
+          type={createPasswordInputType}
+          placeholder="Enter your Create Password"
+          onChange={(e) => setCreatePassword(e.target.value)}
+          validator={checkCreatePassword}
+          errorMessage={createPasswordErrorMessage}
+          child={
             <i
               className={`bx ${
-                createInputType === "text" ? "bx-show" : "bx-hide"
+                createPasswordInputType === "text" ? "bx-show" : "bx-hide"
               } show-hide`}
               onClick={showPassword}
-            ></i>
-          </div>
-          {createPasswordError && (
-            <span className="error">
-              <i className="bx bx-error-circle error-icon"></i>
-              <p className="error-text">Please enter at least 8 charatcer</p>
-            </span>
-          )}
-        </div>
-        <div className="field">
-          <div
-            className={`input-field ${confirmPasswordError ? "invalid" : null}`}
-          >
-            <input
-              ref={confirmPasswordInput}
-              type={confirmInputType}
-              placeholder="Enter your Confirm Password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
             />
+          }
+        />
+        <FormField
+          testId="repassword-input"
+          type={confirmPasswordInputType}
+          placeholder="Enter your Confirm Password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          validator={checkConfirmPassword}
+          errorMessage={confirmPasswordErrorMessage}
+          child={
             <i
               className={`bx ${
-                confirmInputType === "text" ? "bx-show" : "bx-hide"
+                confirmPasswordInputType === "text" ? "bx-show" : "bx-hide"
               } show-hide`}
-              onClick={showConfrimPassword}
-            ></i>
-          </div>
-          {confirmPasswordError && (
-            <span className="error">
-              <i className="bx bx-error-circle error-icon"></i>
-              <p className="error-text">Please don't match</p>
-            </span>
-          )}
-        </div>
-        <div className="input-field button">
-          <input
-            className="input-field button"
-            type="submit"
-            value="Sign Up"
-            disabled={
-              emailError ||
-              createPasswordError ||
-              confirmPasswordError ||
-              email === "" ||
-              createPassword === "" ||
-              confirmPassword === ""
-            }
-          />
-        </div>
+              onClick={showConfirmPassword}
+            />
+          }
+        />
+        <FormField
+          testId="signup-button"
+          type="submit"
+          value="Sign up"
+          disabled={!formIsValid}
+        />
 
         <p className="signin-link">
-          Already have an account? <a href="/signin">Signin</a>
+          Already have an account? <span onClick={navigateSignIn}>Signin</span>
         </p>
       </form>
     </div>
