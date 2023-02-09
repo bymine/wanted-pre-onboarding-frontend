@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./signIn.css";
 import { FormField } from "../../components/index";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import withAuth from "../../hoc/withAuth";
 import { toast } from "react-toastify";
+import { postSignIn } from "../../apis/auth/auth";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -37,29 +37,24 @@ const SignIn = () => {
     setPasswordErrorMessage("");
   }
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:5000/auth/signin", {
-        email,
-        password,
-      })
-      .then(function (response) {
-        localStorage.setItem("token", response.data["access_token"]);
-        navigate("/todo", { replace: true });
-        toast.success("Sign In Succesful");
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          setEmailErrorMessage("User does not exist");
-        } else if (error.response.status === 401) {
-          setPasswordErrorMessage("Password error");
-        } else {
-          console.log("Error:", error.message);
-        }
-      });
-  }
+    try {
+      const data = await postSignIn(email, password);
+      localStorage.setItem("token", data["access_token"]);
+      toast.success("Sign In Succesful");
+      navigate("/todo", { replace: true });
+    } catch (error) {
+      if (error.response.status === 404) {
+        setEmailErrorMessage("User does not exist");
+      } else if (error.response.status === 401) {
+        setPasswordErrorMessage("Password error");
+      } else {
+        console.log("Error:", error.message);
+      }
+    }
+  };
 
   function showPassword() {
     setPasswordInputType(passwordInputType === "text" ? "password" : "text");
