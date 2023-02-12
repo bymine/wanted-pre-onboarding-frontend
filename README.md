@@ -1,6 +1,6 @@
 # 원티드 프리온보딩 프론트엔드 - 선발 과제
 
-## 목차
+## :books: 목차
 
 1. [요구 사항](#요구-사항)
 2. [작동 화면](#작동-화면)
@@ -8,7 +8,7 @@
 4. [진행 기간](#진행-기간)
 5. [폴더 구조](#폴더-구조)
 
-## 요구 사항
+## :clipboard: 요구 사항
 
 ### 1. 로그인 / 회원가입
 
@@ -59,7 +59,7 @@
 
   - [x] 투두 리스트의 수정 기능을 구현해주세요
 
-## 작동 화면
+## :movie_camera: 작동 화면
 - 로그인 화면과 회원가입 화면
 
   ![wnated-pre-onboarding1](https://user-images.githubusercontent.com/71866185/218249208-1575862b-cdb9-4a27-b1c0-279fe02723d8.gif)
@@ -83,7 +83,7 @@
   //http://localhost:3000
   ```
 
-- 서버 실행
+- :computer: 서버 실행
 
   [백엔드 코드](https://github.com/walking-sunset/selection-task)
 
@@ -96,12 +96,14 @@
   //http://localhost:5000
   ```
 
-## 진행 기간
+## :date: 진행 기간
 
 2023.2.3 ~ 2023.2.11
 
 
-## 폴더 구조
+
+
+## :open_file_folder: 폴더 구조
 
 ```
 📦src
