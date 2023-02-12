@@ -46,6 +46,7 @@
 
 
 .todo-content-field .todo-options {
+    margin-left: 20px;
     display: flex;
     height: 100%;
     align-items: center;

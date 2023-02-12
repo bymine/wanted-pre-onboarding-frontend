@@ -10,13 +10,14 @@ const Todo = () => {
   const [addTodo, setAddTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
-
   const getTodos = async () => {
     try {
       var data = await getTodo();
       setTodos(data);
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        toast.error("Failed to fetch Todos");
+      }
     }
   };
 
@@ -30,10 +31,10 @@ const Todo = () => {
         getTodos();
       });
       setAddTodo("");
-      toast.success("Create Todo Successfucl");
+      toast.success("Succesed to Create Todo");
     } catch (error) {
       if (error.response.status === 401) {
-        toast.error("Failed Create Todo");
+        toast.error("Failed to Create Todo");
         signOut();
       }
     }

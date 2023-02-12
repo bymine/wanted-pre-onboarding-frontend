@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./todoField.css";
 import PropTypes from "prop-types";
 import { deleteTodo, putTodo } from "../../apis/todo/todo";
+import { toast } from "react-toastify";
 
 const TodoField = ({ id, todo, isChecked, getTodos }) => {
   const [editTodo, setEditTodo] = useState(todo);
@@ -10,12 +11,19 @@ const TodoField = ({ id, todo, isChecked, getTodos }) => {
 
   const handleSubmit = async () => {
     if (editMode) {
-      try {
-        await putTodo(id, editTodo, isCompleted).then(() => {
-          getTodos();
-        });
-        setEditMode(!editMode);
-      } catch (error) {}
+      if (window.confirm("Are you sure you want to edit todo?")) {
+        try {
+          await putTodo(id, editTodo, isCompleted).then(() => {
+            getTodos();
+          });
+          setEditMode(!editMode);
+          toast.success("Succesed to Edit Todo");
+        } catch (error) {
+          if (error.response.status === 401) {
+            toast.error("Failed to Edit Todo");
+          }
+        }
+      }
     } else {
       setEditMode(!editMode);
     }
@@ -25,11 +33,18 @@ const TodoField = ({ id, todo, isChecked, getTodos }) => {
     if (editMode) {
       setEditMode(!editMode);
     } else {
-      try {
-        await deleteTodo(id).then(() => {
-          getTodos();
-        });
-      } catch (error) {}
+      if (window.confirm("Are you sure you want to delete todo?")) {
+        try {
+          await deleteTodo(id).then(() => {
+            getTodos();
+          });
+          toast.success("Succesed to Delete Todo");
+        } catch (error) {
+          if (error.response.status === 401) {
+            toast.error("Failed to Delete Todo");
+          }
+        }
+      }
     }
   };
 
