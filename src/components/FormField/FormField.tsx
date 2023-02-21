@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { RefObject, useEffect } from "react";
 import "./formField.css";
 import PropTypes from "prop-types";
 
@@ -12,10 +12,10 @@ const FormField = ({
   child,
   value,
   disabled,
-}) => {
-  const inputRef = React.createRef();
+}: any) => {
+  const inputRef: RefObject<HTMLInputElement> = React.createRef();
   useEffect(() => {
-    inputRef.current.addEventListener("keyup", () => {
+    inputRef.current!.addEventListener("keyup", () => {
       validator();
     });
   });

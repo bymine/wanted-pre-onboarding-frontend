@@ -60,18 +60,16 @@ const SignUp = () => {
     setConfirmPasswordErrorMessage("");
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
 
     try {
-      await postSignUp(email, createPassword);
+      await postSignUp({ email, createPassword });
       toast.success("Sign Up Succesful");
       navigateSignIn();
     } catch (error) {
-      if (error.response.status === 400) {
+      if (error instanceof Error) {
         setEmailErrorMessage("The same email already exists.");
-      } else {
-        console.log("Error:", error.message);
       }
     }
   };

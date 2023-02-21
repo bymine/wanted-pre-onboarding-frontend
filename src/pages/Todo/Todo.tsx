@@ -15,7 +15,7 @@ const Todo = () => {
       var data = await getTodo();
       setTodos(data);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error instanceof Error) {
         toast.error("Failed to fetch Todos");
       }
     }
@@ -33,7 +33,7 @@ const Todo = () => {
       setAddTodo("");
       toast.success("Succesed to Create Todo");
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error instanceof Error) {
         toast.error("Failed to Create Todo");
         signOut();
       }
@@ -71,7 +71,7 @@ const Todo = () => {
         </button>
       </div>
 
-      {todos.map((todo) => (
+      {/* {todos.map((todo) => (
         <TodoField
           key={todo.id}
           id={todo.id}
@@ -79,7 +79,7 @@ const Todo = () => {
           isChecked={todo.isCompleted}
           getTodos={getTodos}
         />
-      ))}
+      ))} */}
     </div>
   );
 };
