@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./signUp.css";
 import { FormField } from "../../components/index";
 import { toast } from "react-toastify";
 import { postSignUp } from "../../apis/auth/auth";
 import { AxiosError } from "axios";
+import withAuth from "../../hoc/withAuth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -150,4 +151,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withAuth(SignUp);
