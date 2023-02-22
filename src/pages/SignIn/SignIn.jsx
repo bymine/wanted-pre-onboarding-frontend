@@ -39,7 +39,6 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const data = await postSignIn(email, password);
       localStorage.setItem("token", data["access_token"]);
