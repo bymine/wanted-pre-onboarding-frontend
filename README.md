@@ -60,16 +60,16 @@
   - [x] 투두 리스트의 수정 기능을 구현해주세요
 
 ## :movie_camera: 작동 화면
+
 - 로그인 화면과 회원가입 화면
 
   ![wnated-pre-onboarding1](https://user-images.githubusercontent.com/71866185/218249208-1575862b-cdb9-4a27-b1c0-279fe02723d8.gif)
 
-
 - 이메일과 비밀번호 유효성을 확인
-![wnated-pre-onboarding2](https://user-images.githubusercontent.com/71866185/218249246-c49f0f33-a80d-4323-930b-ad424110dc6b.gif)
+  ![wnated-pre-onboarding2](https://user-images.githubusercontent.com/71866185/218249246-c49f0f33-a80d-4323-930b-ad424110dc6b.gif)
 
 - 투두 리스트 화면
-![wnated-pre-onboarding3](https://user-images.githubusercontent.com/71866185/218249318-f26a4bd9-3560-41e2-b4bf-556b5d0654a7.gif)
+  ![wnated-pre-onboarding3](https://user-images.githubusercontent.com/71866185/218249318-f26a4bd9-3560-41e2-b4bf-556b5d0654a7.gif)
 
 ## 실행 방법
 
@@ -93,15 +93,11 @@
   cd server
   port를 5000으로 변경
   npm start
-  //http://localhost:5000
   ```
 
 ## :date: 진행 기간
 
 2023.2.3 ~ 2023.2.11
-
-
-
 
 ## :open_file_folder: 폴더 구조
 
@@ -148,4 +144,3 @@
 | **components** | 재사용 가능한 컴포넌트들이 위치하는 폴더입니다.                        |
 | **hoc**        | 컴포넌트 로직을 재사용하기 위한 고차 컴포넌트들이 위치하는 폴더입니다. |
 | **pages**      | 라우팅을 적용할 때 페이지 컴포넌트들이 위치하는 폴더입니다.            |
-
