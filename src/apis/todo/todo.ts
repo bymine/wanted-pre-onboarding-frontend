@@ -2,6 +2,12 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:8000/todos";
 
+export type TodoPropsType = {
+  id?: number;
+  todo?: string;
+  isCompleted?: boolean;
+};
+
 const setHeaders = () => {
   return {
     headers: {
@@ -19,7 +25,7 @@ export const getTodo = async () => {
   }
 };
 
-export const postTodo = async (todo: any) => {
+export const postTodo = async ({ todo }: TodoPropsType) => {
   try {
     const response = await axios.post(`${baseUrl}`, { todo }, setHeaders());
     return response.data;
@@ -28,7 +34,7 @@ export const postTodo = async (todo: any) => {
   }
 };
 
-export const putTodo = async ({ id, todo, isCompleted }: any) => {
+export const putTodo = async ({ id, todo, isCompleted }: TodoPropsType) => {
   try {
     const response = await axios.put(
       `${baseUrl}/${id}`,
@@ -40,7 +46,7 @@ export const putTodo = async ({ id, todo, isCompleted }: any) => {
     throw error;
   }
 };
-export const deleteTodo = async (id: any) => {
+export const deleteTodo = async ({ id }: TodoPropsType) => {
   try {
     const response = await axios.delete(`${baseUrl}/${id}`, setHeaders());
     return response.data;

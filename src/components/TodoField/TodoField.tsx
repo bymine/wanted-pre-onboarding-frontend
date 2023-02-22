@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import "./todoField.css";
-import PropTypes from "prop-types";
 import { deleteTodo, putTodo } from "../../apis/todo/todo";
 import { toast } from "react-toastify";
 
-const TodoField = ({ id, todo, isChecked, getTodos }: any) => {
+type TodoFieldType = {
+  id: number;
+  todo: string;
+  isChecked: boolean;
+  getTodos: () => void;
+};
+
+const TodoField = ({ id, todo, isChecked, getTodos }: TodoFieldType) => {
   const [editTodo, setEditTodo] = useState(todo);
   const [isCompleted, setIsCompleted] = useState(isChecked);
   const [editMode, setEditMode] = useState(false);
 
-  const handleSubmit = async () => {
+  const onHandleSubmit = async () => {
     if (editMode) {
       if (window.confirm("Are you sure you want to edit todo?")) {
         try {
-          await putTodo({ id, editTodo, isCompleted }).then(() => {
+          await putTodo({ id, todo: editTodo, isCompleted }).then(() => {
             getTodos();
           });
           setEditMode(!editMode);
@@ -29,13 +35,13 @@ const TodoField = ({ id, todo, isChecked, getTodos }: any) => {
     }
   };
 
-  const handleDelte = async () => {
+  const onHandleDelte = async () => {
     if (editMode) {
       setEditMode(!editMode);
     } else {
       if (window.confirm("Are you sure you want to delete todo?")) {
         try {
-          await deleteTodo(id).then(() => {
+          await deleteTodo({ id }).then(() => {
             getTodos();
           });
           toast.success("Succesed to Delete Todo");
@@ -72,13 +78,13 @@ const TodoField = ({ id, todo, isChecked, getTodos }: any) => {
       <div className="todo-options">
         <button
           data-testid={editMode ? "submit-button" : "modify-button"}
-          onClick={handleSubmit}
+          onClick={onHandleSubmit}
         >
           {editMode ? "제출" : "수정"}
         </button>
         <button
           data-testid={editMode ? "cancel-button" : "delete-button"}
-          onClick={handleDelte}
+          onClick={onHandleDelte}
         >
           {editMode ? "취소" : "삭제"}
         </button>
@@ -88,10 +94,3 @@ const TodoField = ({ id, todo, isChecked, getTodos }: any) => {
 };
 
 export default TodoField;
-
-TodoField.propTypes = {
-  id: PropTypes.number.isRequired,
-  todo: PropTypes.string.isRequired,
-  isChecked: PropTypes.bool.isRequired,
-  getTodos: PropTypes.func.isRequired,
-};

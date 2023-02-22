@@ -1,6 +1,17 @@
 import React, { RefObject, useEffect } from "react";
 import "./formField.css";
-import PropTypes from "prop-types";
+
+type FormFieldType = {
+  testId: string;
+  type: string;
+  placeholder?: string;
+  disabled?: boolean;
+  value?: string;
+  child?: React.ReactElement;
+  validator?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
+};
 
 const FormField = ({
   testId,
@@ -12,11 +23,11 @@ const FormField = ({
   child,
   value,
   disabled,
-}: any) => {
+}: FormFieldType) => {
   const inputRef: RefObject<HTMLInputElement> = React.createRef();
   useEffect(() => {
     inputRef.current!.addEventListener("keyup", () => {
-      validator();
+      validator!();
     });
   });
   return (
@@ -50,15 +61,3 @@ const FormField = ({
 };
 
 export default FormField;
-
-FormField.propTypes = {
-  testId: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  value: PropTypes.string,
-  child: PropTypes.element,
-  validator: PropTypes.func,
-  onChange: PropTypes.func,
-  errorMessage: PropTypes.string,
-};

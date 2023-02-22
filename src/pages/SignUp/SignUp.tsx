@@ -4,6 +4,7 @@ import "./signUp.css";
 import { FormField } from "../../components/index";
 import { toast } from "react-toastify";
 import { postSignUp } from "../../apis/auth/auth";
+import { AxiosError } from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -60,15 +61,15 @@ const SignUp = () => {
     setConfirmPasswordErrorMessage("");
   }
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     try {
-      await postSignUp({ email, createPassword });
+      await postSignUp({ email, password: createPassword });
       toast.success("Sign Up Succesful");
       navigateSignIn();
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof AxiosError) {
         setEmailErrorMessage("The same email already exists.");
       }
     }

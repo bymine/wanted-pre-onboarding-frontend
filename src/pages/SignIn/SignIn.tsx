@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import withAuth from "../../hoc/withAuth";
 import { toast } from "react-toastify";
 import { postSignIn } from "../../apis/auth/auth";
+import { AxiosError } from "axios";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -37,22 +38,21 @@ const SignIn = () => {
     setPasswordErrorMessage("");
   }
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
-
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      const data = await postSignIn({ email, password });
-      localStorage.setItem("token", data["access_token"]);
+      const returnToken = await postSignIn({ email, password });
+      localStorage.setItem("token", returnToken["access_token"]);
       toast.success("Sign In Succesful");
       navigate("/todo", { replace: true });
     } catch (error) {
-      // if (error.response.status === 404) {
-      //   setEmailErrorMessage("User does not exist");
-      // } else if (error.response.status === 401) {
-      //   setPasswordErrorMessage("Password error");
-      // } else {
-      //   console.log("Error:", error.message);
-      // }
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 404) {
+          setEmailErrorMessage("User does not exist");
+        } else if (error.response?.status === 401) {
+          setPasswordErrorMessage("Password error");
+        }
+      }
     }
   };
 

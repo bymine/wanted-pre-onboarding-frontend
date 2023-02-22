@@ -10,6 +10,7 @@ const Todo = () => {
   const [addTodo, setAddTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
+
   const getTodos = async () => {
     try {
       var data = await getTodo();
@@ -27,7 +28,7 @@ const Todo = () => {
 
   const createTodo = async () => {
     try {
-      await postTodo(addTodo).then(() => {
+      await postTodo({ todo: addTodo }).then(() => {
         getTodos();
       });
       setAddTodo("");
@@ -71,7 +72,7 @@ const Todo = () => {
         </button>
       </div>
 
-      {/* {todos.map((todo) => (
+      {todos.map((todo: { id: number; todo: string; isCompleted: boolean }) => (
         <TodoField
           key={todo.id}
           id={todo.id}
@@ -79,7 +80,7 @@ const Todo = () => {
           isChecked={todo.isCompleted}
           getTodos={getTodos}
         />
-      ))} */}
+      ))}
     </div>
   );
 };
