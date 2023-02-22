@@ -37,21 +37,22 @@ const SignIn = () => {
     setPasswordErrorMessage("");
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
+
     try {
-      const data = await postSignIn(email, password);
+      const data = await postSignIn({ email, password });
       localStorage.setItem("token", data["access_token"]);
       toast.success("Sign In Succesful");
       navigate("/todo", { replace: true });
     } catch (error) {
-      if (error.response.status === 404) {
-        setEmailErrorMessage("User does not exist");
-      } else if (error.response.status === 401) {
-        setPasswordErrorMessage("Password error");
-      } else {
-        console.log("Error:", error.message);
-      }
+      // if (error.response.status === 404) {
+      //   setEmailErrorMessage("User does not exist");
+      // } else if (error.response.status === 401) {
+      //   setPasswordErrorMessage("Password error");
+      // } else {
+      //   console.log("Error:", error.message);
+      // }
     }
   };
 

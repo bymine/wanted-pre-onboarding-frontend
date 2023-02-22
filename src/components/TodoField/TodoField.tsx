@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { deleteTodo, putTodo } from "../../apis/todo/todo";
 import { toast } from "react-toastify";
 
-const TodoField = ({ id, todo, isChecked, getTodos }) => {
+const TodoField = ({ id, todo, isChecked, getTodos }: any) => {
   const [editTodo, setEditTodo] = useState(todo);
   const [isCompleted, setIsCompleted] = useState(isChecked);
   const [editMode, setEditMode] = useState(false);
@@ -13,13 +13,13 @@ const TodoField = ({ id, todo, isChecked, getTodos }) => {
     if (editMode) {
       if (window.confirm("Are you sure you want to edit todo?")) {
         try {
-          await putTodo(id, editTodo, isCompleted).then(() => {
+          await putTodo({ id, editTodo, isCompleted }).then(() => {
             getTodos();
           });
           setEditMode(!editMode);
           toast.success("Succesed to Edit Todo");
         } catch (error) {
-          if (error.response.status === 401) {
+          if (error instanceof Error) {
             toast.error("Failed to Edit Todo");
           }
         }
@@ -40,7 +40,7 @@ const TodoField = ({ id, todo, isChecked, getTodos }) => {
           });
           toast.success("Succesed to Delete Todo");
         } catch (error) {
-          if (error.response.status === 401) {
+          if (error instanceof Error) {
             toast.error("Failed to Delete Todo");
           }
         }

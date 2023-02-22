@@ -19,7 +19,7 @@ export const getTodo = async () => {
   }
 };
 
-export const postTodo = async (todo) => {
+export const postTodo = async (todo: any) => {
   try {
     const response = await axios.post(`${baseUrl}`, { todo }, setHeaders());
     return response.data;
@@ -28,7 +28,7 @@ export const postTodo = async (todo) => {
   }
 };
 
-export const putTodo = async (id, todo, isCompleted) => {
+export const putTodo = async ({ id, todo, isCompleted }: any) => {
   try {
     const response = await axios.put(
       `${baseUrl}/${id}`,
@@ -40,7 +40,7 @@ export const putTodo = async (id, todo, isCompleted) => {
     throw error;
   }
 };
-export const deleteTodo = async (id) => {
+export const deleteTodo = async (id: any) => {
   try {
     const response = await axios.delete(`${baseUrl}/${id}`, setHeaders());
     return response.data;
