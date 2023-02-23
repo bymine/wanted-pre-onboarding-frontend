@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect } from "react";
+import React from "react";
 import "./formField.css";
 
 type FormFieldType = {
@@ -8,7 +8,6 @@ type FormFieldType = {
   disabled?: boolean;
   value?: string;
   child?: React.ReactElement;
-  validator?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
 };
@@ -18,30 +17,22 @@ const FormField = ({
   type,
   placeholder,
   onChange,
-  validator,
   errorMessage,
   child,
   value,
   disabled,
 }: FormFieldType) => {
-  const inputRef: RefObject<HTMLInputElement> = React.createRef();
-  useEffect(() => {
-    inputRef.current!.addEventListener("keyup", () => {
-      validator!();
-    });
-  });
   return (
     <div className="field">
       <div
-        className={`input-field ${type === "submit" && "button"} ${
-          typeof errorMessage !== "undefined" &&
-          errorMessage !== "" &&
-          "invalid"
+        className={`input-field ${type === "submit" ? "button" : ""} ${
+          typeof errorMessage !== "undefined" && errorMessage !== ""
+            ? "invalid"
+            : ""
         }`}
       >
         <input
           data-testid={testId}
-          ref={inputRef}
           type={type}
           placeholder={placeholder}
           onChange={onChange}

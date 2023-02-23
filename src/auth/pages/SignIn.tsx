@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormField } from "../components/index";
 import { useNavigate } from "react-router-dom";
-import { withAuth } from "../../commons/index";
+import { withAuth } from "../../commons/components/index";
 import { toast } from "react-toastify";
 import { postSignIn } from "../apis/auth";
 import { AxiosError } from "axios";
@@ -9,37 +9,40 @@ import "./signIn.css";
 
 const SignIn = () => {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [passwordInputType, setPasswordInputType] = useState("password");
+  const [emailError, setEmailError] = useState("");
+  const [pwError, setPwError] = useState("");
+
+  const [pwType, setPwType] = useState("password");
 
   const formIsValid =
-    email !== "" &&
-    password !== "" &&
-    emailErrorMessage === "" &&
-    passwordErrorMessage === "";
+    email !== "" && password !== "" && emailError === "" && pwError === "";
 
-  function checkEmail() {
-    const emailRegex = /^[^ ]+@[^ ]+[a-z]/;
-    if (!email.match(emailRegex)) {
-      return setEmailErrorMessage("Please enter a valid email");
-    }
-    setEmailErrorMessage("");
+  function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const emailRegex = /@/;
+    const isEmailValid = emailRegex.test(e.target.value);
+
+    setEmail(e.target.value);
+
+    if (isEmailValid) setEmailError("");
+    else setEmailError("Please enter a valid email");
   }
 
-  function checkPassword() {
-    const passwordRegex = /[^ ]{8,}/;
-    if (!password.match(passwordRegex)) {
-      return setPasswordErrorMessage("Please enter at least 8 charatcer");
-    }
-    setPasswordErrorMessage("");
+  function handlePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const isPasswordValid = e.target.value.length >= 8;
+
+    setPassword(e.target.value);
+
+    if (isPasswordValid) setPwError("");
+    else setPwError("Please enter at least 8 charatcer");
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     try {
       const returnToken = await postSignIn({ email, password });
       localStorage.setItem("token", returnToken["access_token"]);
@@ -48,16 +51,16 @@ const SignIn = () => {
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
-          setEmailErrorMessage("User does not exist");
+          setEmailError("User does not exist");
         } else if (error.response?.status === 401) {
-          setPasswordErrorMessage("Password error");
+          setPwError("Password error");
         }
       }
     }
-  };
+  }
 
-  function showPassword() {
-    setPasswordInputType(passwordInputType === "text" ? "password" : "text");
+  function onClickPw() {
+    setPwType(pwType === "text" ? "password" : "text");
   }
 
   function navigateSignUp() {
@@ -72,24 +75,22 @@ const SignIn = () => {
           testId="email-input"
           type="text"
           placeholder="Enter your Email"
-          onChange={(e) => setEmail(e.target.value)}
-          validator={checkEmail}
-          errorMessage={emailErrorMessage}
+          onChange={handleEmailInput}
+          errorMessage={emailError}
         />
 
         <FormField
           testId="password-input"
-          type={passwordInputType}
+          type={pwType}
           placeholder="Enter your Password"
-          onChange={(e) => setPassword(e.target.value)}
-          validator={checkPassword}
-          errorMessage={passwordErrorMessage}
+          onChange={handlePasswordInput}
+          errorMessage={pwError}
           child={
             <i
               className={`bx ${
-                passwordInputType === "text" ? "bx-show" : "bx-hide"
+                pwType === "text" ? "bx-show" : "bx-hide"
               } show-hide`}
-              onClick={showPassword}
+              onClick={onClickPw}
             />
           }
         />

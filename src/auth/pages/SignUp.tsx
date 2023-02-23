@@ -4,7 +4,7 @@ import { FormField } from "../components/index";
 import { toast } from "react-toastify";
 import { postSignUp } from "../apis/auth";
 import { AxiosError } from "axios";
-import { withAuth } from "../../commons/index";
+import { withAuth } from "../../commons/components/index";
 import "./signUp.css";
 
 const SignUp = () => {
@@ -14,52 +14,47 @@ const SignUp = () => {
   const [createPassword, setCreatePassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [createPasswordErrorMessage, setCreatePasswordErrorMessage] =
-    useState("");
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
-    useState("");
+  const [emailError, setEmailError] = useState("");
+  const [createPwError, setCreatePwError] = useState("");
+  const [confirmPwError, setConfirmPwError] = useState("");
 
-  const [createPasswordInputType, setCreatePasswordInputType] =
-    useState("password");
-  const [confirmPasswordInputType, setConfirmPasswordInputType] =
-    useState("password");
+  const [createPwType, setCreatePwType] = useState("password");
+  const [confirmPwType, setConfirmPwType] = useState("password");
 
   const formIsValid =
-    emailErrorMessage === "" &&
-    createPasswordErrorMessage === "" &&
-    confirmPasswordErrorMessage === "" &&
+    emailError === "" &&
+    createPwError === "" &&
+    confirmPwError === "" &&
     email !== "" &&
     createPassword !== "" &&
     confirmPassword !== "";
 
-  function checkEmail() {
-    const emailRegex = /^[^ ]+@[^ ]+[a-z]/;
-    if (!email.match(emailRegex)) {
-      return setEmailErrorMessage("Please enter a valid email");
-    }
-    setEmailErrorMessage("");
+  function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const emailRegex = /@/;
+    const isEmailValid = emailRegex.test(e.target.value);
+
+    setEmail(e.target.value);
+
+    if (isEmailValid) setEmailError("");
+    else setEmailError("Please enter a valid email");
   }
 
-  function checkCreatePassword() {
-    const passwordRegex = /[^ ]{8,}/;
+  function handleCreatePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const isCreatePasswordValid = e.target.value.length >= 8;
 
-    if (confirmPassword !== "") {
-      checkConfirmPassword();
-    }
-    if (!createPassword.match(passwordRegex)) {
-      return setCreatePasswordErrorMessage(
-        "Please enter at least 8 characters"
-      );
-    }
-    setCreatePasswordErrorMessage("");
+    setCreatePassword(e.target.value);
+
+    if (isCreatePasswordValid) setCreatePwError("");
+    else setCreatePwError("Please enter at least 8 charatcer");
   }
 
-  function checkConfirmPassword() {
-    if (createPassword !== confirmPassword) {
-      return setConfirmPasswordErrorMessage("Please don't match");
-    }
-    setConfirmPasswordErrorMessage("");
+  function handleConfirmPasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const isConfirmPasswordValid = e.target.value === createPassword;
+
+    setConfirmPassword(e.target.value);
+
+    if (isConfirmPasswordValid) setConfirmPwError("");
+    else setConfirmPwError("Please don't match");
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,21 +66,17 @@ const SignUp = () => {
       navigateSignIn();
     } catch (error) {
       if (error instanceof AxiosError) {
-        setEmailErrorMessage("The same email already exists.");
+        setEmailError("The same email already exists.");
       }
     }
   };
 
-  function showPassword() {
-    setCreatePasswordInputType(
-      createPasswordInputType === "text" ? "password" : "text"
-    );
+  function onClickCreatePw() {
+    setCreatePwType(createPwType === "text" ? "password" : "text");
   }
 
-  function showConfirmPassword() {
-    setConfirmPasswordInputType(
-      confirmPasswordInputType === "text" ? "password" : "text"
-    );
+  function onClickConfirmPw() {
+    setConfirmPwType(confirmPwType === "text" ? "password" : "text");
   }
 
   function navigateSignIn() {
@@ -100,39 +91,36 @@ const SignUp = () => {
           testId="email-input"
           type="text"
           placeholder="Enter your Email"
-          onChange={(e) => setEmail(e.target.value)}
-          validator={checkEmail}
-          errorMessage={emailErrorMessage}
+          onChange={handleEmailInput}
+          errorMessage={emailError}
         />
         <FormField
           testId="password-input"
-          type={createPasswordInputType}
+          type={createPwType}
           placeholder="Enter your Create Password"
-          onChange={(e) => setCreatePassword(e.target.value)}
-          validator={checkCreatePassword}
-          errorMessage={createPasswordErrorMessage}
+          onChange={handleCreatePasswordInput}
+          errorMessage={createPwError}
           child={
             <i
               className={`bx ${
-                createPasswordInputType === "text" ? "bx-show" : "bx-hide"
+                createPwType === "text" ? "bx-show" : "bx-hide"
               } show-hide`}
-              onClick={showPassword}
+              onClick={onClickCreatePw}
             />
           }
         />
         <FormField
           testId="repassword-input"
-          type={confirmPasswordInputType}
+          type={confirmPwType}
           placeholder="Enter your Confirm Password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          validator={checkConfirmPassword}
-          errorMessage={confirmPasswordErrorMessage}
+          onChange={handleConfirmPasswordInput}
+          errorMessage={confirmPwError}
           child={
             <i
               className={`bx ${
-                confirmPasswordInputType === "text" ? "bx-show" : "bx-hide"
+                confirmPwType === "text" ? "bx-show" : "bx-hide"
               } show-hide`}
-              onClick={showConfirmPassword}
+              onClick={onClickConfirmPw}
             />
           }
         />

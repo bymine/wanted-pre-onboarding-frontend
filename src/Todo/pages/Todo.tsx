@@ -3,7 +3,7 @@ import { TodoField } from "../components/index";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getTodo, postTodo } from "../apis/todo";
-import { withAuth } from "../../commons/index";
+import { withAuth } from "../../commons/components/index";
 import "./todo.css";
 
 const Todo = () => {
