@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./todo.css";
-import withAuth from "../../hoc/withAuth";
-import { TodoField } from "../../components/index";
+import { TodoField } from "../components/index";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { getTodo, postTodo } from "../../apis/todo/todo";
+import { getTodo, postTodo } from "../apis/todo";
+import { withAuth } from "../../commons/index";
+import "./todo.css";
 
 const Todo = () => {
   const [addTodo, setAddTodo] = useState("");

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./todoField.css";
-import { deleteTodo, putTodo } from "../../apis/todo/todo";
+import { deleteTodo, putTodo } from "../apis/todo";
 import { toast } from "react-toastify";
 
 type TodoFieldType = {

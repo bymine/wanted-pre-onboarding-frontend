@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./signUp.css";
-import { FormField } from "../../components/index";
+import { FormField } from "../components/index";
 import { toast } from "react-toastify";
-import { postSignUp } from "../../apis/auth/auth";
+import { postSignUp } from "../apis/auth";
 import { AxiosError } from "axios";
-import withAuth from "../../hoc/withAuth";
+import { withAuth } from "../../commons/index";
+import "./signUp.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
