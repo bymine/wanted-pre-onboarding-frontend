@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormField } from "../components/index";
 import { toast } from "react-toastify";
-import { postSignUp } from "../apis/auth";
+import { postSignUp } from "../apis";
 import { AxiosError } from "axios";
 import { withAuth } from "../../commons/components/index";
 import "./signUp.css";

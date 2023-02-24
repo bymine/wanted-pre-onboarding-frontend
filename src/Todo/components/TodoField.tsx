@@ -1,28 +1,33 @@
 import React, { useState } from "react";
 import "./todoField.css";
-import { deleteTodo, putTodo } from "../apis/todo";
+import { deleteTodo, putTodo } from "../apis";
 import { toast } from "react-toastify";
+import { TodoType } from "../pages/Todo";
 
 type TodoFieldType = {
   id: number;
   todo: string;
   isChecked: boolean;
-  getTodos: () => void;
+  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
 };
 
-const TodoField = ({ id, todo, isChecked, getTodos }: TodoFieldType) => {
+const TodoField = ({ id, todo, isChecked, setTodos }: TodoFieldType) => {
   const [editTodo, setEditTodo] = useState(todo);
   const [isCompleted, setIsCompleted] = useState(isChecked);
-  const [editMode, setEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
-  const onHandleSubmit = async () => {
-    if (editMode) {
-      if (window.confirm("Are you sure you want to edit todo?")) {
+  async function onHandleSubmit() {
+    if (isEditMode) {
+      const isUserAgree = window.confirm("Are you sure you want to edit todo?");
+      if (isUserAgree) {
         try {
-          await putTodo({ id, todo: editTodo, isCompleted }).then(() => {
-            getTodos();
-          });
-          setEditMode(!editMode);
+          var data = await putTodo({ id, todo: editTodo, isCompleted });
+          setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+              todo.id === data.data.id ? data.data : todo
+            )
+          );
+          setIsEditMode(!isEditMode);
           toast.success("Succesed to Edit Todo");
         } catch (error) {
           if (error instanceof Error) {
@@ -30,29 +35,27 @@ const TodoField = ({ id, todo, isChecked, getTodos }: TodoFieldType) => {
           }
         }
       }
-    } else {
-      setEditMode(!editMode);
-    }
-  };
+    } else setIsEditMode(!isEditMode);
+  }
 
-  const onHandleDelte = async () => {
-    if (editMode) {
-      setEditMode(!editMode);
-    } else {
-      if (window.confirm("Are you sure you want to delete todo?")) {
+  async function onHandleDelte() {
+    if (isEditMode) setIsEditMode(!isEditMode);
+    else {
+      const isUserAgree = window.confirm(
+        "Are you sure you want to delete todo?"
+      );
+      if (isUserAgree)
         try {
-          await deleteTodo({ id }).then(() => {
-            getTodos();
-          });
+          await deleteTodo({ id });
+          setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
           toast.success("Succesed to Delete Todo");
         } catch (error) {
           if (error instanceof Error) {
             toast.error("Failed to Delete Todo");
           }
         }
-      }
     }
-  };
+  }
 
   return (
     <li className="todo-content-field">
@@ -63,7 +66,7 @@ const TodoField = ({ id, todo, isChecked, getTodos }: TodoFieldType) => {
           className="todo-checkbox"
           onChange={(e) => setIsCompleted(e.target.checked)}
         />
-        {editMode ? (
+        {isEditMode ? (
           <input
             data-testid="modify-input"
             type="text"
@@ -77,16 +80,16 @@ const TodoField = ({ id, todo, isChecked, getTodos }: TodoFieldType) => {
       </label>
       <div className="todo-options">
         <button
-          data-testid={editMode ? "submit-button" : "modify-button"}
+          data-testid={isEditMode ? "submit-button" : "modify-button"}
           onClick={onHandleSubmit}
         >
-          {editMode ? "제출" : "수정"}
+          {isEditMode ? "제출" : "수정"}
         </button>
         <button
-          data-testid={editMode ? "cancel-button" : "delete-button"}
+          data-testid={isEditMode ? "cancel-button" : "delete-button"}
           onClick={onHandleDelte}
         >
-          {editMode ? "취소" : "삭제"}
+          {isEditMode ? "취소" : "삭제"}
         </button>
       </div>
     </li>

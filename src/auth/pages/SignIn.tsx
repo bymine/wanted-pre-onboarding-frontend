@@ -3,7 +3,7 @@ import { FormField } from "../components/index";
 import { useNavigate } from "react-router-dom";
 import { withAuth } from "../../commons/components/index";
 import { toast } from "react-toastify";
-import { postSignIn } from "../apis/auth";
+import { postSignIn } from "../apis";
 import { AxiosError } from "axios";
 import "./signIn.css";
 
@@ -44,8 +44,8 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const returnToken = await postSignIn({ email, password });
-      localStorage.setItem("token", returnToken["access_token"]);
+      const response = await postSignIn({ email, password });
+      localStorage.setItem("token", response.data.access_token);
       toast.success("Sign In Succesful");
       navigate("/todo", { replace: true });
     } catch (error) {
@@ -59,7 +59,7 @@ const SignIn = () => {
     }
   }
 
-  function onClickPw() {
+  function onClickPwIcon() {
     setPwType(pwType === "text" ? "password" : "text");
   }
 
@@ -90,7 +90,7 @@ const SignIn = () => {
               className={`bx ${
                 pwType === "text" ? "bx-show" : "bx-hide"
               } show-hide`}
-              onClick={onClickPw}
+              onClick={onClickPwIcon}
             />
           }
         />

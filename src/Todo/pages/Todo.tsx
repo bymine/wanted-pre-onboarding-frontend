@@ -2,35 +2,40 @@ import React, { useEffect, useState } from "react";
 import { TodoField } from "../components/index";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { getTodo, postTodo } from "../apis/todo";
+import { getTodo, postTodo } from "../apis/index";
 import { withAuth } from "../../commons/components/index";
 import "./todo.css";
 
+export type TodoType = {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+};
+
 const Todo = () => {
   const [addTodo, setAddTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<TodoType[]>([]);
   const navigate = useNavigate();
 
-  const getTodos = async () => {
+  async function getTodos() {
     try {
       var data = await getTodo();
-      setTodos(data);
+      setTodos(data.data);
     } catch (error) {
       if (error instanceof Error) {
         toast.error("Failed to fetch Todos");
       }
     }
-  };
+  }
 
-  useEffect(() => {
-    getTodos();
-  }, []);
-
-  const createTodo = async () => {
+  async function createTodo() {
     try {
-      await postTodo({ todo: addTodo }).then(() => {
-        getTodos();
-      });
+      const data = await postTodo({ todo: addTodo });
+      setTodos((prevTodos) => [
+        ...prevTodos,
+        { id: data.data.id, todo: data.data.todo, isCompleted: false },
+      ]);
+
       setAddTodo("");
       toast.success("Succesed to Create Todo");
     } catch (error) {
@@ -39,12 +44,16 @@ const Todo = () => {
         signOut();
       }
     }
-  };
+  }
 
   function signOut() {
     localStorage.removeItem("token");
     navigate("/signin", { replace: true });
   }
+
+  useEffect(() => {
+    getTodos();
+  }, []);
 
   return (
     <div className="todo">
@@ -78,7 +87,7 @@ const Todo = () => {
           id={todo.id}
           todo={todo.todo}
           isChecked={todo.isCompleted}
-          getTodos={getTodos}
+          setTodos={setTodos}
         />
       ))}
     </div>
