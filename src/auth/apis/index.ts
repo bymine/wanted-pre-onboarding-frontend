@@ -1,4 +1,3 @@
-import axios from "axios";
 import api from "../../commons/apis";
 
 export async function postSignIn({ email, password }: any) {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import api from "../../commons/apis";
 
 export type TodoPropsType = {

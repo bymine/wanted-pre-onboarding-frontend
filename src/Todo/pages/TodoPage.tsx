@@ -1,7 +1,7 @@
 import { TodoField } from "../components/index";
 import { withAuth } from "../../commons/components/index";
-import "./todo.css";
 import { useTodo } from "../hooks";
+import * as S from "./styles";
 
 const TodoPage = () => {
   const {
@@ -15,30 +15,31 @@ const TodoPage = () => {
   } = useTodo();
 
   return (
-    <div className="todo">
-      <div className="todo-header">
-        <h1>Todo List</h1>
-        <i className="bx bx-log-out" onClick={signOut}></i>
-      </div>
+    <S.Container>
+      <S.HeaderBox>
+        <S.HeaderTitle>Todo List</S.HeaderTitle>
+        <S.HeaderIcon
+          className="bx bx-log-out"
+          onClick={signOut}
+        ></S.HeaderIcon>
+      </S.HeaderBox>
 
-      <div className="add-todo-field">
-        <input
-          className="new-todo-input"
+      <S.AddBox>
+        <S.AddInput
           data-testid="new-todo-input"
           type="text"
           placeholder="Enter new todo"
           value={addTodo}
           onChange={handleAddInput}
         />
-        <button
-          className="new-todo-add-button"
+        <S.AddButton
           data-testid="new-todo-add-button"
           onClick={createTodo}
           disabled={isDisabled}
         >
           추가
-        </button>
-      </div>
+        </S.AddButton>
+      </S.AddBox>
 
       {todos.map((todo: { id: number; todo: string; isCompleted: boolean }) => (
         <TodoField
@@ -49,7 +50,7 @@ const TodoPage = () => {
           setTodos={setTodos}
         />
       ))}
-    </div>
+    </S.Container>
   );
 };
 

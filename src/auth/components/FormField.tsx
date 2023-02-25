@@ -1,5 +1,5 @@
 import React from "react";
-import "./formField.css";
+import * as S from "./styles";
 
 type FormFieldType = {
   testId: string;
@@ -22,32 +22,32 @@ const FormField = ({
   value,
   disabled,
 }: FormFieldType) => {
+  const buttonProps = type === "submit" ? "button" : "";
+  const isFieldValid =
+    typeof errorMessage !== "undefined" && errorMessage !== "" && "invalid";
+
   return (
-    <div className="field">
-      <div
-        className={`input-field ${type === "submit" ? "button" : ""} ${
-          typeof errorMessage !== "undefined" && errorMessage !== ""
-            ? "invalid"
-            : ""
-        }`}
-      >
-        <input
+    <S.Container>
+      <S.FieldBox>
+        <S.FieldInput
+          isValid={isFieldValid}
+          button={buttonProps}
+          disabled={disabled}
           data-testid={testId}
           type={type}
           placeholder={placeholder}
           onChange={onChange}
           value={value}
-          disabled={disabled}
         />
-        {child}
-      </div>
+        <S.InputIcon>{child}</S.InputIcon>
+      </S.FieldBox>
       {typeof errorMessage !== "undefined" && errorMessage !== "" && (
-        <span className="error">
-          <i className="bx bx-error-circle error-icon"></i>
-          <p className="error-text">{errorMessage}</p>
-        </span>
+        <S.ErrorBox>
+          <S.ErrorIcon className="bx bx-error-circle error-icon"></S.ErrorIcon>
+          <S.ErrorSpan className="error-text">{errorMessage}</S.ErrorSpan>
+        </S.ErrorBox>
       )}
-    </div>
+    </S.Container>
   );
 };
 

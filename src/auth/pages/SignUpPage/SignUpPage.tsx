@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormField } from "../../components";
 import { withAuth } from "../../../commons/components";
 import { useAuthForm, AuthForm } from "../../hooks";
-import "./signUpPage.css";
+import * as S from "../styles";
 
 const SignUpPage = () => {
   const {
@@ -29,8 +29,8 @@ const SignUpPage = () => {
   }
 
   return (
-    <div className="signup">
-      <h1>Sign Up</h1>
+    <S.Container>
+      <S.Title>Sign Up</S.Title>
       <form onSubmit={handleSubmit}>
         <FormField
           testId="email-input"
@@ -76,11 +76,12 @@ const SignUpPage = () => {
           disabled={isDisabled}
         />
 
-        <p className="signin-link">
-          Already have an account? <span onClick={navigateSignIn}>Signin</span>
-        </p>
+        <S.LinkBox>
+          Already have an account?{" "}
+          <S.Span onClick={navigateSignIn}>Signin</S.Span>
+        </S.LinkBox>
       </form>
-    </div>
+    </S.Container>
   );
 };
 

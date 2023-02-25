@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./todoField.css";
 import { deleteTodo, putTodo } from "../apis";
 import { toast } from "react-toastify";
-import { TodoType } from "../pages/Todo";
+import { TodoType } from "../hooks/useTodo";
+import * as S from "./styles";
 
 type TodoFieldType = {
   id: number;
@@ -58,41 +58,43 @@ const TodoField = ({ id, todo, isChecked, setTodos }: TodoFieldType) => {
   }
 
   return (
-    <li className="todo-content-field">
-      <label>
-        <input
+    <S.Container>
+      <S.TodoContainer>
+        <S.TodoCheckBox
           type="checkbox"
           checked={isCompleted}
-          className="todo-checkbox"
-          onChange={(e) => setIsCompleted(e.target.checked)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setIsCompleted(e.target.checked)
+          }
         />
         {isEditMode ? (
-          <input
+          <S.TodoInput
             data-testid="modify-input"
             type="text"
-            className="edit-todo-input"
             defaultValue={todo}
-            onChange={(e) => setEditTodo(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEditTodo(e.target.value)
+            }
           />
         ) : (
-          <span>{todo}</span>
+          <S.TodoSpan>{todo}</S.TodoSpan>
         )}
-      </label>
-      <div className="todo-options">
-        <button
+      </S.TodoContainer>
+      <S.TodoOptionBox>
+        <S.TodoButton
           data-testid={isEditMode ? "submit-button" : "modify-button"}
           onClick={onHandleSubmit}
         >
           {isEditMode ? "제출" : "수정"}
-        </button>
-        <button
+        </S.TodoButton>
+        <S.TodoButton
           data-testid={isEditMode ? "cancel-button" : "delete-button"}
           onClick={onHandleDelte}
         >
           {isEditMode ? "취소" : "삭제"}
-        </button>
-      </div>
-    </li>
+        </S.TodoButton>
+      </S.TodoOptionBox>
+    </S.Container>
   );
 };
 
