@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { SignIn, SignUp } from "./auth/pages";
+import { SignInPage, SignUpPage } from "./auth/pages";
 import { Todo } from "./Todo/pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,9 +11,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/todo" element={<Todo />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="*" element={<SignUp />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="*" element={<SignUpPage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer
