@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { deleteTodo, putTodo } from "../apis";
 import { toast } from "react-toastify";
-import { TodoType } from "../hooks/useTodo";
 import * as S from "./styles";
+import { ReducerAction, REDUCER_ACTION_TYPE } from "../reducers/todoReducer";
 
 type TodoFieldType = {
   id: number;
   todo: string;
   isChecked: boolean;
-  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
+  dispatch: React.Dispatch<ReducerAction>;
 };
 
-const TodoField = ({ id, todo, isChecked, setTodos }: TodoFieldType) => {
+const TodoField = ({ id, todo, isChecked, dispatch }: TodoFieldType) => {
   const [editTodo, setEditTodo] = useState(todo);
   const [isCompleted, setIsCompleted] = useState(isChecked);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -22,11 +22,7 @@ const TodoField = ({ id, todo, isChecked, setTodos }: TodoFieldType) => {
       if (isUserAgree) {
         try {
           var data = await putTodo({ id, todo: editTodo, isCompleted });
-          setTodos((prevTodos) =>
-            prevTodos.map((todo) =>
-              todo.id === data.data.id ? data.data : todo
-            )
-          );
+          dispatch({ type: REDUCER_ACTION_TYPE.UPDATE, payload: data.data });
           setIsEditMode(!isEditMode);
           toast.success("Succesed to Edit Todo");
         } catch (error) {
@@ -47,7 +43,10 @@ const TodoField = ({ id, todo, isChecked, setTodos }: TodoFieldType) => {
       if (isUserAgree)
         try {
           await deleteTodo({ id });
-          setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+          dispatch({
+            type: REDUCER_ACTION_TYPE.DELETE,
+            payload: { id, todo, isCompleted },
+          });
           toast.success("Succesed to Delete Todo");
         } catch (error) {
           if (error instanceof Error) {

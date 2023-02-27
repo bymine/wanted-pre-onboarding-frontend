@@ -7,7 +7,7 @@ const TodoPage = () => {
   const {
     addTodo,
     todos,
-    setTodos,
+    dispatch,
     createTodo,
     signOut,
     isDisabled,
@@ -41,13 +41,13 @@ const TodoPage = () => {
         </S.AddButton>
       </S.AddBox>
 
-      {todos.map((todo: { id: number; todo: string; isCompleted: boolean }) => (
+      {todos.todo.map((todo) => (
         <TodoField
           key={todo.id}
           id={todo.id}
           todo={todo.todo}
           isChecked={todo.isCompleted}
-          setTodos={setTodos}
+          dispatch={dispatch}
         />
       ))}
     </S.Container>

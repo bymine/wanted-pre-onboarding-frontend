@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getTodo, postTodo } from "../apis";
+import { initState, REDUCER_ACTION_TYPE } from "../reducers/todoReducer";
+import { todoReducer } from "../reducers/index";
 
 export type TodoType = {
   id: number;
@@ -13,7 +15,8 @@ function useTodo() {
   const navigate = useNavigate();
 
   const [addTodo, setAddTodo] = useState("");
-  const [todos, setTodos] = useState<TodoType[]>([]);
+
+  const [todos, dispatch] = useReducer(todoReducer, initState);
 
   function handleAddInput({
     target: { value },
@@ -26,21 +29,19 @@ function useTodo() {
   async function getTodos() {
     try {
       var data = await getTodo();
-      setTodos(data.data);
+      dispatch({ type: REDUCER_ACTION_TYPE.INIT, init: data.data });
     } catch (error) {
       if (error instanceof Error) {
         toast.error("Failed to fetch Todos");
       }
+      return [];
     }
   }
 
   async function createTodo() {
     try {
       const data = await postTodo({ todo: addTodo });
-      setTodos((prevTodos) => [
-        ...prevTodos,
-        { id: data.data.id, todo: data.data.todo, isCompleted: false },
-      ]);
+      dispatch({ type: REDUCER_ACTION_TYPE.ADD, payload: data.data });
 
       setAddTodo("");
       toast.success("Succesed to Create Todo");
@@ -65,7 +66,7 @@ function useTodo() {
     addTodo,
     setAddTodo,
     todos,
-    setTodos,
+    dispatch,
     createTodo,
     signOut,
     isDisabled,
