@@ -1,3 +1,8 @@
+export type AuthType = {
+  email: string;
+  password: string;
+};
+
 export type FormFieldType = {
   testId: string;
   type: string;
