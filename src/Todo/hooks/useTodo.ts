@@ -1,22 +1,16 @@
-import { useEffect, useReducer, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { getTodo, postTodo } from "../apis";
-import { initState, REDUCER_ACTION_TYPE } from "../reducers/todoReducer";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { AuthContext } from "../../auth/contexts/authContext";
+import { deleteTodo, getTodo, postTodo, putTodo } from "../apis";
+import { initState, TODO_REDUCER_ACTION_TYPE } from "../constants";
 import { todoReducer } from "../reducers/index";
-
-export type TodoType = {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-};
+import { TodoType } from "../types";
 
 function useTodo() {
-  const navigate = useNavigate();
-
   const [addTodo, setAddTodo] = useState("");
 
   const [todos, dispatch] = useReducer(todoReducer, initState);
+
+  const { handleSignOut } = useContext(AuthContext);
 
   function handleAddInput({
     target: { value },
@@ -29,10 +23,9 @@ function useTodo() {
   async function getTodos() {
     try {
       var data = await getTodo();
-      dispatch({ type: REDUCER_ACTION_TYPE.INIT, init: data.data });
+      dispatch({ type: TODO_REDUCER_ACTION_TYPE.INIT, init: data.data });
     } catch (error) {
       if (error instanceof Error) {
-        toast.error("Failed to fetch Todos");
       }
       return [];
     }
@@ -41,21 +34,42 @@ function useTodo() {
   async function createTodo() {
     try {
       const data = await postTodo({ todo: addTodo });
-      dispatch({ type: REDUCER_ACTION_TYPE.ADD, payload: data.data });
+      dispatch({ type: TODO_REDUCER_ACTION_TYPE.ADD, payload: data.data });
 
       setAddTodo("");
-      toast.success("Succesed to Create Todo");
     } catch (error) {
       if (error instanceof Error) {
-        toast.error("Failed to Create Todo");
         signOut();
+      }
+    }
+  }
+
+  async function updateTodo({ id, todo, isCompleted }: TodoType) {
+    try {
+      var data = await putTodo({ id, todo: todo, isCompleted });
+      dispatch({ type: TODO_REDUCER_ACTION_TYPE.UPDATE, payload: data.data });
+    } catch (error) {
+      if (error instanceof Error) {
+      }
+    }
+  }
+
+  async function removeTodo({ id, todo, isCompleted }: TodoType) {
+    try {
+      await deleteTodo({ id, todo, isCompleted });
+      dispatch({
+        type: TODO_REDUCER_ACTION_TYPE.DELETE,
+        payload: { id, todo, isCompleted },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
       }
     }
   }
 
   function signOut() {
     localStorage.removeItem("token");
-    navigate("/signin", { replace: true });
+    handleSignOut();
   }
 
   useEffect(() => {
@@ -66,11 +80,12 @@ function useTodo() {
     addTodo,
     setAddTodo,
     todos,
-    dispatch,
     createTodo,
+    removeTodo,
     signOut,
     isDisabled,
     handleAddInput,
+    updateTodo,
   };
 }
 

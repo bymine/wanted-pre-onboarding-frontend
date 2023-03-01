@@ -20,7 +20,6 @@ const SignInPage = () => {
   function onClickPwIcon() {
     setPwType(pwType === "text" ? "password" : "text");
   }
-
   return (
     <S.Container>
       <S.Title>Sign In</S.Title>

@@ -1,11 +1,14 @@
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthForm, AuthFormType } from "./index";
 import { postSignIn, postSignUp } from "../apis/index";
+import { AuthContext } from "../contexts/authContext";
 
 function useAuthForm({ type }: AuthFormType) {
   const navigate = useNavigate();
+
+  const { handleSignIn } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,7 +77,7 @@ function useAuthForm({ type }: AuthFormType) {
         try {
           const response = await postSignIn({ email, password });
           localStorage.setItem("token", response.data.access_token);
-          navigateTodo();
+          handleSignIn(response.data.access_token);
         } catch (error) {
           if (error instanceof AxiosError) {
             if (error.response?.status === 404) {

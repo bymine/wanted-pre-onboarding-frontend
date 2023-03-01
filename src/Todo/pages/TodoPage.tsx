@@ -7,13 +7,13 @@ const TodoPage = () => {
   const {
     addTodo,
     todos,
-    dispatch,
     createTodo,
+    updateTodo,
+    removeTodo,
     signOut,
     isDisabled,
     handleAddInput,
   } = useTodo();
-
   return (
     <S.Container>
       <S.HeaderBox>
@@ -44,10 +44,11 @@ const TodoPage = () => {
       {todos.todo.map((todo) => (
         <TodoField
           key={todo.id}
-          id={todo.id}
-          todo={todo.todo}
-          isChecked={todo.isCompleted}
-          dispatch={dispatch}
+          id={todo.id!}
+          todo={todo.todo!}
+          isChecked={todo.isCompleted!}
+          updateTodo={updateTodo}
+          removeTodo={removeTodo}
         />
       ))}
     </S.Container>
