@@ -1,20 +1,21 @@
 # 원티드 프리온보딩 프론트엔드 - 선발 과제
 
-## :books: 목차
+# :magnet: 목차
 
 1. [요구 사항](#요구-사항)
 2. [작동 화면](#작동-화면)
 3. [실행 방법](#실행-방법)
 4. [진행 기간](#진행-기간)
-5. [폴더 구조](#폴더-구조)
-6. [개선 사항](#개선-사항)
+5. [기술 스택](#기술-스택)
+6. [폴더 구조](#폴더-구조)
+7. [개선 사항](#개선-사항)
 
 <br/>
 <br/>
 
-## :clipboard: 요구 사항
+# :clipboard: 요구 사항
 
-### 1. 로그인 / 회원가입
+## 1. 로그인 / 회원가입
 
 - Assignment 1
 
@@ -66,7 +67,7 @@
 <br/>
 <br/>
 
-## :movie_camera: 작동 화면
+# :movie_camera: 작동 화면
 
 - 로그인 화면과 회원가입 화면
 
@@ -87,7 +88,7 @@
 <br/>
 <br/>
 
-## 실행 방법
+# 실행 방법
 
 - 클라이언트 실행
 
@@ -114,14 +115,27 @@
   <br/>
   <br/>
 
-## :date: 진행 기간
+# :date: 진행 기간
 
 2023.2.3 ~ 2023.2.11
 
+리팩토링 기간 2023.2.20 ~ 2023.3.1
+
 <br/>
 <br/>
 
-## :open_file_folder: 폴더 구조
+# :books: 기술 스택
+
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+<img src="https://img.shields.io/badge/TypeSCript-3178C6?style=for-the-badge&logo=TypeSCript&logoColor=black">
+<img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+<img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=black">
+<img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=black">
+
+<br/>
+<br/>
+
+# :open_file_folder: 폴더 구조
 
 ```
 📦src
@@ -181,7 +195,7 @@
  ┗ 📜index.tsx
 ```
 
-### 기능에 따른 폴더 구조
+## 기능에 따른 폴더 구조
 
 | 폴더          | 용도                                                                 |
 | ------------- | -------------------------------------------------------------------- |
@@ -192,9 +206,9 @@
 <br/>
 <br/>
 
-## 개선 사항
+# 개선 사항
 
-### [타입스크립트 적용]
+## [타입스크립트 적용]
 
 자바스크립트로 작성된 코드를 타입스크립트로 변환
 
@@ -203,7 +217,7 @@
 <br/>
 <br/>
 
-### [styled-components 적용]
+## [styled-components 적용]
 
 css 기반 스타일링을 styled-components 적용
 
@@ -212,18 +226,23 @@ css 기반 스타일링을 styled-components 적용
 <br/>
 <br/>
 
-### [기능에 따른 폴더 구조 변경]
+## [기능에 따른 폴더 구조 변경]
 
 협업 시 작업자가 해당 기능의 폴더에서만 작업할 수 있어 파일 찾기가 수월하고,
 
 git 충돌이 줄어든다는 장점을 고려해 기능에 따른 폴더 구조로 변경 하였습니다.
 
-### [custom hooks 사용]
+<br/>
+<br/>
+
+## [custom hooks 사용]
 
 컴포넌트에서 사용하는 공통적인 로직을 분리해서 추상화하고 재사용하기 위해 사용하였습니다.
 
 아래와 같이 공통 로직을 추상화하는 훅을 만들어 사용했습니다.
 
 `useAuthForm` : 각 인증 관련 페이지에서 중복되는 form 관련 로직
+
 `useTodo` : todo 관련 로직
+
 `useAuth` : 인증 관련 로직
