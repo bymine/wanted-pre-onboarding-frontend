@@ -1,5 +1,5 @@
-import { useContext, useEffect, useReducer, useState } from "react";
-import { AuthContext } from "../../auth/contexts/authContext";
+import { useEffect, useReducer, useState } from "react";
+import { useAuth } from "../../auth/hooks";
 import { deleteTodo, getTodo, postTodo, putTodo } from "../apis";
 import { initState, TODO_REDUCER_ACTION_TYPE } from "../constants";
 import { todoReducer } from "../reducers/index";
@@ -10,7 +10,7 @@ function useTodo() {
 
   const [todos, dispatch] = useReducer(todoReducer, initState);
 
-  const { handleSignOut } = useContext(AuthContext);
+  const { handleSignOut } = useAuth();
 
   function handleAddInput({
     target: { value },

@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../auth/contexts/authContext";
+import { useAuth } from "../../auth/hooks";
 
 const withAuth =
   <P extends object>(WrappedComponent: React.ComponentType) =>
@@ -9,7 +9,7 @@ const withAuth =
     const location = useLocation();
     const {
       state: { token },
-    } = useContext(AuthContext);
+    } = useAuth();
 
     useEffect(() => {
       if (token !== "") {

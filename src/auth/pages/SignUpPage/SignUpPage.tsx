@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FormField } from "../../components";
 import { withAuth } from "../../../commons/components";
-import { useAuthForm, AuthForm } from "../../hooks";
+import { useAuthForm } from "../../hooks";
 import * as S from "../styles";
+import { AuthForm } from "../../constants";
 
 const SignUpPage = () => {
   const {

@@ -1,14 +1,15 @@
 import { AxiosError } from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthForm, AuthFormType } from "./index";
 import { postSignIn, postSignUp } from "../apis/index";
-import { AuthContext } from "../contexts/authContext";
+import { AuthForm } from "../constants";
+import { AuthFormType } from "../types";
+import useAuth from "./useAuth";
 
 function useAuthForm({ type }: AuthFormType) {
   const navigate = useNavigate();
 
-  const { handleSignIn } = useContext(AuthContext);
+  const { handleSignIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

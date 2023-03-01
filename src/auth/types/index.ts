@@ -22,3 +22,7 @@ export type AuthReducerAction = {
   type: string;
   payload: string;
 };
+
+export type AuthFormType = {
+  type: string;
+};
