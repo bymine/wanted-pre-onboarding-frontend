@@ -1,15 +1,15 @@
-import { AuthStateType } from "../types";
+import { AuthStateType } from '../types';
 
 export const initState: AuthStateType = {
-  token: "",
+  token: '',
 };
 
 export const AUTH_REDUCER_ACTION_TYPE = {
-  SIGNIN: "SIGNIN",
-  SIGNOUT: "SIGNUP",
+  SIGNIN: 'SIGNIN',
+  SIGNOUT: 'SIGNUP',
 };
 
 export const AuthForm = {
-  SIGNIN: "SIGNIN",
-  SIGNUP: "SIGNUP",
+  SIGNIN: 'SIGNIN',
+  SIGNUP: 'SIGNUP',
 };

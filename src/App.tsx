@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./auth/contexts/authContext";
-import { SignInPage, SignUpPage } from "./auth/pages";
-import { TodoPage } from "./Todo/pages";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './auth/contexts/authContext';
+import { SignInPage, SignUpPage } from './auth/pages';
+import { TodoPage } from './Todo/pages';
 
 function App() {
-  const token = localStorage.getItem("token") ?? "";
+  const token = localStorage.getItem('token') ?? '';
   return (
     <div className="App">
       <AuthProvider token={token}>

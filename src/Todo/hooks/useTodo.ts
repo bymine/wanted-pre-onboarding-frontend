@@ -1,12 +1,12 @@
-import { useEffect, useReducer, useState } from "react";
-import { useAuth } from "../../auth/hooks";
-import { deleteTodo, getTodo, postTodo, putTodo } from "../apis";
-import { initState, TODO_REDUCER_ACTION_TYPE } from "../constants";
-import { todoReducer } from "../reducers/index";
-import { TodoType } from "../types";
+import { useEffect, useReducer, useState } from 'react';
+import { useAuth } from '../../auth/hooks';
+import { deleteTodo, getTodo, postTodo, putTodo } from '../apis';
+import { initState, TODO_REDUCER_ACTION_TYPE } from '../constants';
+import { todoReducer } from '../reducers/index';
+import { TodoType } from '../types';
 
 function useTodo() {
-  const [addTodo, setAddTodo] = useState("");
+  const [addTodo, setAddTodo] = useState('');
 
   const [todos, dispatch] = useReducer(todoReducer, initState);
 
@@ -18,14 +18,15 @@ function useTodo() {
     setAddTodo(value);
   }
 
-  const isDisabled = addTodo === "";
+  const isDisabled = addTodo === '';
 
   async function getTodos() {
     try {
-      var data = await getTodo();
+      const data = await getTodo();
       dispatch({ type: TODO_REDUCER_ACTION_TYPE.INIT, init: data.data });
     } catch (error) {
       if (error instanceof Error) {
+        throw new Error('Failed to load todo data');
       }
       return [];
     }
@@ -36,20 +37,21 @@ function useTodo() {
       const data = await postTodo({ todo: addTodo });
       dispatch({ type: TODO_REDUCER_ACTION_TYPE.ADD, payload: data.data });
 
-      setAddTodo("");
+      setAddTodo('');
     } catch (error) {
       if (error instanceof Error) {
-        signOut();
+        throw new Error('Failed to create todo data');
       }
     }
   }
 
   async function updateTodo({ id, todo, isCompleted }: TodoType) {
     try {
-      var data = await putTodo({ id, todo: todo, isCompleted });
+      const data = await putTodo({ id, todo: todo, isCompleted });
       dispatch({ type: TODO_REDUCER_ACTION_TYPE.UPDATE, payload: data.data });
     } catch (error) {
       if (error instanceof Error) {
+        throw new Error('Failed to update todo data');
       }
     }
   }
@@ -63,12 +65,13 @@ function useTodo() {
       });
     } catch (error) {
       if (error instanceof Error) {
+        throw new Error('Failed to delete todo data');
       }
     }
   }
 
   function signOut() {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     handleSignOut();
   }
 

@@ -1,10 +1,10 @@
-import { createContext, ReactElement, useReducer } from "react";
-import { initState, AUTH_REDUCER_ACTION_TYPE } from "../constants";
-import { AuthReducerAction, AuthStateType } from "../types";
+import { createContext, ReactElement, useReducer } from 'react';
+import { initState, AUTH_REDUCER_ACTION_TYPE } from '../constants';
+import { AuthReducerAction, AuthStateType } from '../types';
 
 const reducer = (
   state: AuthStateType,
-  action: AuthReducerAction
+  action: AuthReducerAction,
 ): AuthStateType => {
   switch (action.type) {
     case AUTH_REDUCER_ACTION_TYPE.SIGNIN:
@@ -25,7 +25,7 @@ export const useAuthContext = (initAuthState: AuthStateType) => {
   };
 
   const handleSignOut = () =>
-    dispatch({ type: AUTH_REDUCER_ACTION_TYPE.SIGNOUT, payload: "" });
+    dispatch({ type: AUTH_REDUCER_ACTION_TYPE.SIGNOUT, payload: '' });
 
   return { state, handleSignIn, handleSignOut };
 };

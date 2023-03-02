@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { FormField } from "../../components";
-import { withAuth } from "../../../commons/components";
-import { useAuthForm } from "../../hooks";
-import * as S from "../styles";
-import { AuthForm } from "../../constants";
+import { useState } from 'react';
+import { FormField } from '../../components';
+import { withAuth } from '../../../commons/components';
+import { useAuthForm } from '../../hooks';
+import * as S from '../styles';
+import { AuthForm } from '../../constants';
 
 const SignUpPage = () => {
   const {
@@ -18,15 +18,15 @@ const SignUpPage = () => {
     navigateSignIn,
   } = useAuthForm({ type: AuthForm.SIGNUP });
 
-  const [createPwType, setCreatePwType] = useState("password");
-  const [confirmPwType, setConfirmPwType] = useState("password");
+  const [createPwType, setCreatePwType] = useState('password');
+  const [confirmPwType, setConfirmPwType] = useState('password');
 
   function onClickCreatePw() {
-    setCreatePwType(createPwType === "text" ? "password" : "text");
+    setCreatePwType(createPwType === 'text' ? 'password' : 'text');
   }
 
   function onClickConfirmPw() {
-    setConfirmPwType(confirmPwType === "text" ? "password" : "text");
+    setConfirmPwType(confirmPwType === 'text' ? 'password' : 'text');
   }
 
   return (
@@ -49,7 +49,7 @@ const SignUpPage = () => {
           child={
             <i
               className={`bx ${
-                createPwType === "text" ? "bx-show" : "bx-hide"
+                createPwType === 'text' ? 'bx-show' : 'bx-hide'
               } show-hide`}
               onClick={onClickCreatePw}
             />
@@ -64,7 +64,7 @@ const SignUpPage = () => {
           child={
             <i
               className={`bx ${
-                confirmPwType === "text" ? "bx-show" : "bx-hide"
+                confirmPwType === 'text' ? 'bx-show' : 'bx-hide'
               } show-hide`}
               onClick={onClickConfirmPw}
             />
@@ -78,7 +78,7 @@ const SignUpPage = () => {
         />
 
         <S.LinkBox>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <S.Span onClick={navigateSignIn}>Signin</S.Span>
         </S.LinkBox>
       </form>

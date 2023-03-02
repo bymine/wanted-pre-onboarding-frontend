@@ -1,7 +1,7 @@
-import { TodoField } from "../components/index";
-import { withAuth } from "../../commons/components/index";
-import { useTodo } from "../hooks";
-import * as S from "./styles";
+import { TodoField } from '../components/index';
+import { withAuth } from '../../commons/components/index';
+import { useTodo } from '../hooks';
+import * as S from './styles';
 
 const TodoPage = () => {
   const {
