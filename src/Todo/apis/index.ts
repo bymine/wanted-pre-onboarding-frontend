@@ -1,5 +1,5 @@
 import api from '../../commons/apis';
-import { TodoType } from '../types';
+import { TodoType } from '../contexts/TodoProvider';
 
 export async function getTodo() {
   return await api.get('/todos');

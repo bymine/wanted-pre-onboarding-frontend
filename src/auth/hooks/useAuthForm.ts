@@ -2,14 +2,26 @@ import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postSignIn, postSignUp } from '../apis/index';
-import { AuthForm } from '../constants';
-import { AuthFormType } from '../types';
 import useAuth from './useAuth';
+
+export const AuthForm = {
+  SIGNIN: 'SIGNIN',
+  SIGNUP: 'SIGNUP',
+};
+
+export type SignType = {
+  email: string;
+  password: string;
+};
+
+export type AuthFormType = {
+  type: string;
+};
 
 function useAuthForm({ type }: AuthFormType) {
   const navigate = useNavigate();
 
-  const { handleSignIn } = useAuth();
+  const { dispatch, AUTH_REDUCER_ACTIONS } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,7 +90,10 @@ function useAuthForm({ type }: AuthFormType) {
         try {
           const response = await postSignIn({ email, password });
           localStorage.setItem('token', response.data.access_token);
-          handleSignIn(response.data.access_token);
+          dispatch({
+            type: AUTH_REDUCER_ACTIONS.SIGNIN,
+            payload: response.data.access_token,
+          });
         } catch (error) {
           if (error instanceof AxiosError) {
             if (error.response?.status === 404) {

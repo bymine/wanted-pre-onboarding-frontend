@@ -3,7 +3,7 @@ import { FormField } from '../../components';
 import { withAuth } from '../../../commons/components';
 import { useAuthForm } from '../../hooks';
 import * as S from '../styles';
-import { AuthForm } from '../../constants';
+import { AuthForm } from '../../hooks/useAuthForm';
 
 const SignUpPage = () => {
   const {

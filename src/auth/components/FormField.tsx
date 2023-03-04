@@ -1,6 +1,16 @@
 import React from 'react';
-import { FormFieldType } from '../types';
 import * as S from './styles';
+
+type FormFieldType = {
+  testId: string;
+  type: string;
+  placeholder?: string;
+  disabled?: boolean;
+  value?: string;
+  child?: React.ReactElement;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
+};
 
 const FormField = ({
   testId,

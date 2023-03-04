@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { TodoFieldType } from '../types';
+import { TodoType } from '../contexts/TodoProvider';
 import * as S from './styles';
+
+export type TodoFieldType = {
+  id: number;
+  todo: string;
+  isChecked: boolean;
+  updateTodo: ({ id, todo, isCompleted }: TodoType) => Promise<void>;
+  removeTodo: ({ id, todo, isCompleted }: TodoType) => Promise<void>;
+};
 
 const TodoField = ({
   id,
