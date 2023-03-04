@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { FormField } from "../../components";
-import { withAuth } from "../../../commons/components";
-import { useAuthForm } from "../../hooks";
-import { AuthForm } from "../../constants";
-import * as S from "../styles";
+import { useState } from 'react';
+import { FormField } from '../../components';
+import { withAuth } from '../../../commons/components';
+import { useAuthForm } from '../../hooks';
+import * as S from '../styles';
+import { AuthForm } from '../../hooks/useAuthForm';
 
 const SignInPage = () => {
   const {
@@ -16,10 +16,10 @@ const SignInPage = () => {
     navigateSignUp,
   } = useAuthForm({ type: AuthForm.SIGNIN });
 
-  const [pwType, setPwType] = useState("password");
+  const [pwType, setPwType] = useState('password');
 
   function onClickPwIcon() {
-    setPwType(pwType === "text" ? "password" : "text");
+    setPwType(pwType === 'text' ? 'password' : 'text');
   }
   return (
     <S.Container>
@@ -42,7 +42,7 @@ const SignInPage = () => {
           child={
             <i
               className={`bx ${
-                pwType === "text" ? "bx-show" : "bx-hide"
+                pwType === 'text' ? 'bx-show' : 'bx-hide'
               } show-hide`}
               onClick={onClickPwIcon}
             />
@@ -56,7 +56,7 @@ const SignInPage = () => {
         />
 
         <S.LinkBox>
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <S.Span onClick={navigateSignUp}>SignUp</S.Span>
         </S.LinkBox>
       </form>

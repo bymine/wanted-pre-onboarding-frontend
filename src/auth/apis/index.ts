@@ -1,10 +1,10 @@
-import api from "../../commons/apis";
-import { AuthType } from "../types";
+import api from '../../commons/apis';
+import { SignType } from '../hooks/useAuthForm';
 
-export async function postSignIn({ email, password }: AuthType) {
-  return await api.post("/auth/signin", { email, password });
+export async function postSignIn({ email, password }: SignType) {
+  return await api.post('/auth/signin', { email, password });
 }
 
-export async function postSignUp({ email, password }: AuthType) {
-  return await api.post("/auth/signup", { email, password });
+export async function postSignUp({ email, password }: SignType) {
+  return await api.post('/auth/signup', { email, password });
 }

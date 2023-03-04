@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../auth/hooks";
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/hooks';
 
 const withAuth =
   <P extends object>(WrappedComponent: React.ComponentType) =>
@@ -12,13 +12,13 @@ const withAuth =
     } = useAuth();
 
     useEffect(() => {
-      if (token !== "") {
-        navigate("/todo", { replace: true });
+      if (token !== '') {
+        navigate('/todo', { replace: true });
       } else {
-        if (location.pathname === "/signup") {
-          navigate("/signup", { replace: true });
+        if (location.pathname === '/signup') {
+          navigate('/signup', { replace: true });
         } else {
-          navigate("/signin", { replace: true });
+          navigate('/signin', { replace: true });
         }
       }
     }, [token]);

@@ -1,19 +1,20 @@
-import { TodoField } from "../components/index";
-import { withAuth } from "../../commons/components/index";
-import { useTodo } from "../hooks";
-import * as S from "./styles";
+import { TodoField } from '../components/index';
+import { withAuth } from '../../commons/components/index';
+import * as S from './styles';
+import useTodoManager from '../hooks/useTodoManager';
 
 const TodoPage = () => {
   const {
     addTodo,
-    todos,
+    todoList,
     createTodo,
-    updateTodo,
     removeTodo,
     signOut,
     isDisabled,
     handleAddInput,
-  } = useTodo();
+    updateTodo,
+  } = useTodoManager();
+
   return (
     <S.Container>
       <S.HeaderBox>
@@ -41,12 +42,12 @@ const TodoPage = () => {
         </S.AddButton>
       </S.AddBox>
 
-      {todos.todo.map((todo) => (
+      {todoList.map((todo) => (
         <TodoField
           key={todo.id}
-          id={todo.id!}
-          todo={todo.todo!}
-          isChecked={todo.isCompleted!}
+          id={todo.id}
+          todo={todo.todo}
+          isChecked={todo.isCompleted}
           updateTodo={updateTodo}
           removeTodo={removeTodo}
         />

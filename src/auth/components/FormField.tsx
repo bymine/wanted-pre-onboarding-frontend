@@ -1,6 +1,16 @@
-import React from "react";
-import { FormFieldType } from "../types";
-import * as S from "./styles";
+import React from 'react';
+import * as S from './styles';
+
+type FormFieldType = {
+  testId: string;
+  type: string;
+  placeholder?: string;
+  disabled?: boolean;
+  value?: string;
+  child?: React.ReactElement;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
+};
 
 const FormField = ({
   testId,
@@ -12,11 +22,11 @@ const FormField = ({
   value,
   disabled,
 }: FormFieldType) => {
-  const buttonProps = type === "submit" ? "button" : "";
+  const buttonProps = type === 'submit' ? 'button' : '';
   const isFieldValid =
-    typeof errorMessage !== "undefined" && errorMessage !== "" && "invalid";
+    typeof errorMessage !== 'undefined' && errorMessage !== '' && 'invalid';
   const isErrorVisible =
-    typeof errorMessage !== "undefined" && errorMessage !== "";
+    typeof errorMessage !== 'undefined' && errorMessage !== '';
 
   return (
     <S.Container>

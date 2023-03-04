@@ -1,6 +1,14 @@
-import React, { useState } from "react";
-import { TodoFieldType } from "../types";
-import * as S from "./styles";
+import React, { useState } from 'react';
+import { TodoType } from '../contexts/TodoProvider';
+import * as S from './styles';
+
+export type TodoFieldType = {
+  id: number;
+  todo: string;
+  isChecked: boolean;
+  updateTodo: ({ id, todo, isCompleted }: TodoType) => Promise<void>;
+  removeTodo: ({ id, todo, isCompleted }: TodoType) => Promise<void>;
+};
 
 const TodoField = ({
   id,
@@ -15,7 +23,7 @@ const TodoField = ({
 
   function onHandleSubmit() {
     const isUserAgree =
-      isEditMode && window.confirm("Are you sure you want to edit todo?");
+      isEditMode && window.confirm('Are you sure you want to edit todo?');
 
     if (isUserAgree) updateTodo({ id, todo: editTodo, isCompleted });
 
@@ -24,7 +32,7 @@ const TodoField = ({
 
   function onHandleDelte() {
     const isUserAgree =
-      !isEditMode && window.confirm("Are you sure you want to delete todo?");
+      !isEditMode && window.confirm('Are you sure you want to delete todo?');
 
     if (isUserAgree) removeTodo({ id, todo: editTodo, isCompleted });
     else setIsEditMode(!isEditMode);
@@ -55,16 +63,16 @@ const TodoField = ({
       </S.TodoContainer>
       <S.TodoOptionBox>
         <S.TodoButton
-          data-testid={isEditMode ? "submit-button" : "modify-button"}
+          data-testid={isEditMode ? 'submit-button' : 'modify-button'}
           onClick={onHandleSubmit}
         >
-          {isEditMode ? "제출" : "수정"}
+          {isEditMode ? '제출' : '수정'}
         </S.TodoButton>
         <S.TodoButton
-          data-testid={isEditMode ? "cancel-button" : "delete-button"}
+          data-testid={isEditMode ? 'cancel-button' : 'delete-button'}
           onClick={onHandleDelte}
         >
-          {isEditMode ? "취소" : "삭제"}
+          {isEditMode ? '취소' : '삭제'}
         </S.TodoButton>
       </S.TodoOptionBox>
     </S.Container>
