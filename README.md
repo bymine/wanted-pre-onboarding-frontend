@@ -146,22 +146,19 @@
  ┃ ┃ ┣ 📜FormField.tsx
  ┃ ┃ ┣ 📜index.ts
  ┃ ┃ ┗ 📜styles.ts
- ┃ ┣ 📂constants
- ┃ ┃ ┗ 📜index.ts
  ┃ ┣ 📂contexts
- ┃ ┃ ┗ 📜authContext.tsx
+ ┃ ┃ ┗ 📜AuthProvider.tsx
  ┃ ┣ 📂hooks
  ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜useAuth.ts
  ┃ ┃ ┗ 📜useAuthForm.ts
- ┃ ┣ 📂pages
+ ┃ ┗ 📂pages
  ┃ ┃ ┣ 📂SignInPage
  ┃ ┃ ┃ ┗ 📜SignInPage.tsx
  ┃ ┃ ┣ 📂SignUpPage
  ┃ ┃ ┃ ┗ 📜SignUpPage.tsx
  ┃ ┃ ┣ 📜index.ts
  ┃ ┃ ┗ 📜styles.ts
- ┃ ┗ 📂types
- ┃ ┃ ┗ 📜index.ts
  ┣ 📂commons
  ┃ ┣ 📂apis
  ┃ ┃ ┗ 📜index.ts
@@ -177,20 +174,16 @@
  ┃ ┃ ┣ 📜index.ts
  ┃ ┃ ┣ 📜styles.ts
  ┃ ┃ ┗ 📜TodoField.tsx
- ┃ ┣ 📂constants
- ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂contexts
+ ┃ ┃ ┗ 📜TodoProvider.tsx
  ┃ ┣ 📂hooks
  ┃ ┃ ┣ 📜index.ts
- ┃ ┃ ┗ 📜useTodo.ts
- ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📜useTodo.ts
+ ┃ ┃ ┗ 📜useTodoManager.ts
+ ┃ ┗ 📂pages
  ┃ ┃ ┣ 📜index.ts
  ┃ ┃ ┣ 📜styles.ts
  ┃ ┃ ┗ 📜TodoPage.tsx
- ┃ ┣ 📂reducers
- ┃ ┃ ┣ 📜index.ts
- ┃ ┃ ┗ 📜todoReducer.ts
- ┃ ┗ 📂types
- ┃ ┃ ┗ 📜index.ts
  ┣ 📜App.tsx
  ┗ 📜index.tsx
 ```
@@ -241,8 +234,10 @@ git 충돌이 줄어든다는 장점을 고려해 기능에 따른 폴더 구조
 
 아래와 같이 공통 로직을 추상화하는 훅을 만들어 사용했습니다.
 
-`useAuthForm` : 각 인증 관련 페이지에서 중복되는 form 관련 로직
+- `useAuth` : useContext hook를 사용하여 token을 전역적으로 관리하기 위한 로직
 
-`useTodo` : todo 관련 로직
+- `useTodo` : useContext hook를 사용하여 todo list를 전역적으로 관리하기 위한 로직
 
-`useAuth` : 인증 관련 로직
+- `useAuthForm` : 각 인증 관련 페이지에서 중복되는 form 관련 로직
+
+- `useTodoManager` : 투두 페이지에서 사용하는 로직
