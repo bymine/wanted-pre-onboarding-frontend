@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { FormField } from '../../components';
 import { withAuth } from '../../../commons/components';
-import { useAuth, useInput } from '../../hooks';
+import { useAuth, useInput, usePasswordIcon } from '../../hooks';
 import * as S from '../styles';
 import {
   BUTTON_NAME,
@@ -10,7 +9,6 @@ import {
   REGEX_TYPE,
 } from '../../constants';
 import { PLACEHOLDER, TEST_ID } from '../../../commons/constants';
-import { passwordIcon } from '../../../commons/utils';
 import { useNavigate } from 'react-router-dom';
 import { postSignIn } from '../../apis';
 import { AxiosError } from 'axios';
@@ -31,13 +29,7 @@ const SignInPage = () => {
   const isDisabled =
     !email.input || !password.input || !!email.error || !!password.error;
 
-  const [pwType, setPwType] = useState(INPUT_TYPE.PASSWORD);
-  const pwIcon = passwordIcon(pwType);
-  function onClickPwIcon() {
-    setPwType(
-      pwType === INPUT_TYPE.TEXT ? INPUT_TYPE.PASSWORD : INPUT_TYPE.TEXT,
-    );
-  }
+  const { inputType, icon, onClick } = usePasswordIcon();
 
   function navigateSignUp() {
     navigate('/signup', { replace: true });
@@ -78,11 +70,11 @@ const SignInPage = () => {
         />
         <FormField
           testId={TEST_ID.PASSWORD_INPUT}
-          type={pwType}
+          type={inputType}
           placeholder={PLACEHOLDER.SIGNIN_PW}
           onChange={password.onChange}
           errorMessage={password.error}
-          child={<i className={pwIcon} onClick={onClickPwIcon} />}
+          child={<i className={icon} onClick={onClick} />}
         />
         <FormField
           testId={TEST_ID.SIGNIN_BUTTON}

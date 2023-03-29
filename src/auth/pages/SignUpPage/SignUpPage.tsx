@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FormField } from '../../components';
 import { withAuth } from '../../../commons/components';
 import * as S from '../styles';
@@ -9,11 +9,10 @@ import {
   REGEX_TYPE,
 } from '../../constants';
 import { PLACEHOLDER, TEST_ID } from '../../../commons/constants';
-import { passwordIcon } from '../../../commons/utils';
 import { useNavigate } from 'react-router-dom';
 import { postSignUp } from '../../apis';
 import { AxiosError } from 'axios';
-import { useInput } from '../../hooks';
+import { useInput, usePasswordIcon } from '../../hooks';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -50,22 +49,17 @@ const SignUpPage = () => {
     !!password.error ||
     !!confirmPassword.error;
 
-  const [createPwType, setCreatePwType] = useState(INPUT_TYPE.PASSWORD);
-  const [confirmPwType, setConfirmPwType] = useState(INPUT_TYPE.PASSWORD);
-  const createPwIcon = passwordIcon(createPwType);
-  const confirmPwIcon = passwordIcon(confirmPwType);
+  const {
+    inputType: createPwType,
+    icon: createPwIcon,
+    onClick: onClickCreatePw,
+  } = usePasswordIcon();
 
-  function onClickCreatePw() {
-    setCreatePwType(
-      createPwType === INPUT_TYPE.TEXT ? INPUT_TYPE.PASSWORD : INPUT_TYPE.TEXT,
-    );
-  }
-
-  function onClickConfirmPw() {
-    setConfirmPwType(
-      confirmPwType === INPUT_TYPE.TEXT ? INPUT_TYPE.PASSWORD : INPUT_TYPE.TEXT,
-    );
-  }
+  const {
+    inputType: confirmPwType,
+    icon: confirmPwIcon,
+    onClick: onClickConfirmPw,
+  } = usePasswordIcon();
 
   function navigateSignIn() {
     navigate('/signin', { replace: true });
