@@ -1,5 +1,9 @@
 import api from '../../commons/apis';
-import { SignType } from '../hooks/useAuthForm';
+
+export type SignType = {
+  email: string;
+  password: string;
+};
 
 export async function postSignIn({ email, password }: SignType) {
   return await api.post('/auth/signin', { email, password });

@@ -7,7 +7,7 @@ export const INPUT_TYPE = {
 export const BUTTON_NAME = {
   SIGNIN: 'Sign In',
   SIGNUP: 'Sign Up',
-};
+} as const;
 
 export const ERROR_MESSAGE = {
   EMAIL_EMPTY_ERROR: 'Please enter a valid email',
@@ -16,4 +16,9 @@ export const ERROR_MESSAGE = {
   PW_EMPTY_ERROR: 'Please enter at least 8 characters',
   PW_CONFIRM_ERROR: 'Please match password',
   PW_MATCH_ERROR: 'Password error',
+} as const;
+
+export const REGEX_TYPE = {
+  EMAIL: RegExp(/@/),
+  PASSWORD: RegExp(/^\d{8,}$/),
 };
