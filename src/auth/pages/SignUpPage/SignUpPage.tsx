@@ -4,6 +4,9 @@ import { withAuth } from '../../../commons/components';
 import { useAuthForm } from '../../hooks';
 import * as S from '../styles';
 import { AuthForm } from '../../hooks/useAuthForm';
+import { BUTTON_NAME, INPUT_TYPE } from '../../constants';
+import { PLACEHOLDER, TEST_ID } from '../../../commons/constants';
+import { passwordIcon } from '../../../commons/utils';
 
 const SignUpPage = () => {
   const {
@@ -18,15 +21,21 @@ const SignUpPage = () => {
     navigateSignIn,
   } = useAuthForm({ type: AuthForm.SIGNUP });
 
-  const [createPwType, setCreatePwType] = useState('password');
-  const [confirmPwType, setConfirmPwType] = useState('password');
+  const [createPwType, setCreatePwType] = useState(INPUT_TYPE.PASSWORD);
+  const [confirmPwType, setConfirmPwType] = useState(INPUT_TYPE.PASSWORD);
+  const createPwIcon = passwordIcon(createPwType);
+  const confirmPwIcon = passwordIcon(confirmPwType);
 
   function onClickCreatePw() {
-    setCreatePwType(createPwType === 'text' ? 'password' : 'text');
+    setCreatePwType(
+      createPwType === INPUT_TYPE.TEXT ? INPUT_TYPE.PASSWORD : INPUT_TYPE.TEXT,
+    );
   }
 
   function onClickConfirmPw() {
-    setConfirmPwType(confirmPwType === 'text' ? 'password' : 'text');
+    setConfirmPwType(
+      confirmPwType === INPUT_TYPE.TEXT ? INPUT_TYPE.PASSWORD : INPUT_TYPE.TEXT,
+    );
   }
 
   return (
@@ -34,46 +43,32 @@ const SignUpPage = () => {
       <S.Title>Sign Up</S.Title>
       <form onSubmit={handleSubmit}>
         <FormField
-          testId="email-input"
-          type="text"
-          placeholder="Enter your Email"
+          testId={TEST_ID.EMAIL_INPUT}
+          type={INPUT_TYPE.TEXT}
+          placeholder={PLACEHOLDER.SIGNUP_EMAIL}
           onChange={handleEmailInput}
           errorMessage={emailError}
         />
         <FormField
-          testId="password-input"
+          testId={TEST_ID.PASSWORD_INPUT}
           type={createPwType}
-          placeholder="Enter your Create Password"
+          placeholder={PLACEHOLDER.SIGNUP_PW}
           onChange={handlePasswordInput}
           errorMessage={pwError}
-          child={
-            <i
-              className={`bx ${
-                createPwType === 'text' ? 'bx-show' : 'bx-hide'
-              } show-hide`}
-              onClick={onClickCreatePw}
-            />
-          }
+          child={<i className={createPwIcon} onClick={onClickCreatePw} />}
         />
         <FormField
-          testId="repassword-input"
+          testId={TEST_ID.CONFIRM_PASSWORD_INPUT}
           type={confirmPwType}
-          placeholder="Enter your Confirm Password"
+          placeholder={PLACEHOLDER.SIGNUP_CONFIRM_PW}
           onChange={handleConfirmPasswordInput}
           errorMessage={confirmPwError}
-          child={
-            <i
-              className={`bx ${
-                confirmPwType === 'text' ? 'bx-show' : 'bx-hide'
-              } show-hide`}
-              onClick={onClickConfirmPw}
-            />
-          }
+          child={<i className={confirmPwIcon} onClick={onClickConfirmPw} />}
         />
         <FormField
-          testId="signup-button"
-          type="submit"
-          value="Sign up"
+          testId={TEST_ID.SIGNUP_BUTTON}
+          type={INPUT_TYPE.SUBMIT}
+          value={BUTTON_NAME.SIGNUP}
           disabled={isDisabled}
         />
 
