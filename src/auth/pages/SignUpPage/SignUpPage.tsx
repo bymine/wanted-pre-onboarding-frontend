@@ -1,8 +1,12 @@
 import { FormField } from '../../components';
 import { withAuth } from '../../../commons/components';
 import * as S from '../styles';
-import { BUTTON_NAME, INPUT_TYPE } from '../../constants';
-import { PLACEHOLDER, TEST_ID } from '../../../commons/constants';
+import {
+  PLACEHOLDER,
+  TEST_ID,
+  BUTTON_NAME,
+  INPUT_TYPE,
+} from '../../../commons/constants';
 import { useSignUp } from '../../hooks';
 
 const SignUpPage = () => {

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/hooks';
+import { NAVIGATE_TO } from '../constants';
 
 const withAuth =
   <P extends object>(WrappedComponent: React.ComponentType) =>
@@ -13,12 +14,12 @@ const withAuth =
 
     useEffect(() => {
       if (token !== '') {
-        navigate('/todo', { replace: true });
+        navigate(NAVIGATE_TO.TODO, { replace: true });
       } else {
         if (location.pathname === '/signup') {
-          navigate('/signup', { replace: true });
+          navigate(NAVIGATE_TO.SIGNUP, { replace: true });
         } else {
-          navigate('/signin', { replace: true });
+          navigate(NAVIGATE_TO.SIGNIN, { replace: true });
         }
       }
     }, [token]);

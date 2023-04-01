@@ -2,6 +2,7 @@ import { TodoField } from '../components/index';
 import { withAuth } from '../../commons/components/index';
 import * as S from './styles';
 import useTodoManager from '../hooks/useTodoManager';
+import { INPUT_TYPE, PLACEHOLDER, TEST_ID } from '../../commons/constants';
 
 const TodoPage = () => {
   const {
@@ -27,14 +28,14 @@ const TodoPage = () => {
 
       <S.AddBox>
         <S.AddInput
-          data-testid="new-todo-input"
-          type="text"
-          placeholder="Enter new todo"
+          data-testid={TEST_ID.NEW_TODO_INPUT}
+          type={INPUT_TYPE.TEXT}
+          placeholder={PLACEHOLDER.ADD_NEW_TODO}
           value={addTodo}
           onChange={handleAddInput}
         />
         <S.AddButton
-          data-testid="new-todo-add-button"
+          data-testid={TEST_ID.NEW_TODO_ADD_BUTTON}
           onClick={createTodo}
           disabled={isDisabled}
         >

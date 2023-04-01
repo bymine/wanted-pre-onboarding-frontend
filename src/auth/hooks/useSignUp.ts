@@ -2,9 +2,13 @@ import { AxiosError } from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postSignUp } from '../apis';
-import { ERROR_MESSAGE, REGEX_TYPE } from '../constants';
 import useInput from './useInput';
 import usePasswordIcon from './usePasswordIcon';
+import {
+  ERROR_MESSAGE,
+  NAVIGATE_TO,
+  REGEX_TYPE,
+} from '../../commons/constants';
 
 export default function useSignUp() {
   const navigate = useNavigate();
@@ -53,7 +57,7 @@ export default function useSignUp() {
   } = usePasswordIcon();
 
   function navigateSignIn() {
-    navigate('/signin', { replace: true });
+    navigate(NAVIGATE_TO.SIGNIN, { replace: true });
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

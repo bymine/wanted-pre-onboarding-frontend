@@ -2,8 +2,12 @@ import { FormField } from '../../components';
 import { withAuth } from '../../../commons/components';
 import { useSignIn } from '../../hooks';
 import * as S from '../styles';
-import { BUTTON_NAME, INPUT_TYPE } from '../../constants';
-import { PLACEHOLDER, TEST_ID } from '../../../commons/constants';
+import {
+  BUTTON_NAME,
+  INPUT_TYPE,
+  PLACEHOLDER,
+  TEST_ID,
+} from '../../../commons/constants';
 
 const SignInPage = () => {
   const {

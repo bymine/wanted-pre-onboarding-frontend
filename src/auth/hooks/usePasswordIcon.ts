@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { INPUT_TYPE } from '../constants';
+import { INPUT_TYPE } from '../../commons/constants';
 
 export default function usePasswordIcon() {
   const [inputType, setInputType] = useState(INPUT_TYPE.PASSWORD);
