@@ -9,6 +9,7 @@ import {
   NAVIGATE_TO,
   REGEX_TYPE,
 } from '../../commons/constants';
+import { localTokenRepository } from '../..';
 
 export default function useSignUp() {
   const navigate = useNavigate();
@@ -39,10 +40,10 @@ export default function useSignUp() {
         email: email.input,
         password: password.input,
       });
-      localStorage.setItem('token', response.data.access_token);
+      localTokenRepository.save(response.data.access_token);
       dispatch({
         type: AUTH_REDUCER_ACTIONS.SIGNIN,
-        payload: response.data.access_token,
+        payload: { token: response.data.access_token },
       });
     } catch (error) {
       if (error instanceof AxiosError) {

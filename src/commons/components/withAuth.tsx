@@ -13,14 +13,15 @@ const withAuth =
     } = useAuth();
 
     useEffect(() => {
-      if (token !== '') {
+      if (token) {
         navigate(NAVIGATE_TO.TODO, { replace: true });
       } else {
-        if (location.pathname === '/signup') {
-          navigate(NAVIGATE_TO.SIGNUP, { replace: true });
-        } else {
-          navigate(NAVIGATE_TO.SIGNIN, { replace: true });
-        }
+        navigate(
+          location.pathname === '/signup'
+            ? NAVIGATE_TO.SIGNUP
+            : NAVIGATE_TO.SIGNIN,
+          { replace: true },
+        );
       }
     }, [token]);
 
