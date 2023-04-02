@@ -1,6 +1,5 @@
 import React from 'react';
 import * as S from './styles';
-import { INPUT_TYPE } from '../../commons/constants';
 
 type Props = {
   testId: string;
@@ -23,16 +22,18 @@ const FormField = ({
   value,
   disabled,
 }: Props) => {
-  const buttonProps = type === INPUT_TYPE.SUBMIT ? 'button' : null;
-  const isValid = errorMessage && 'invalid';
-  const isErrorVisible = errorMessage !== undefined && errorMessage !== '';
+  const isFieldValid =
+    typeof errorMessage !== 'undefined' && errorMessage !== ''
+      ? 'invalid'
+      : undefined;
+  const isErrorVisible =
+    typeof errorMessage !== 'undefined' && errorMessage !== '';
 
   return (
     <S.Container>
       <S.FieldBox>
         <S.FieldInput
-          isValid={isValid}
-          button={buttonProps}
+          name={isFieldValid}
           disabled={disabled}
           data-testid={testId}
           type={type}
