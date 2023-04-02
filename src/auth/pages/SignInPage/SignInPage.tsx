@@ -1,62 +1,54 @@
-import { useState } from 'react';
 import { FormField } from '../../components';
 import { withAuth } from '../../../commons/components';
-import { useAuthForm } from '../../hooks';
+import { useSignIn } from '../../hooks';
 import * as S from '../styles';
-import { AuthForm } from '../../hooks/useAuthForm';
+import {
+  BUTTON_NAME,
+  INPUT_TYPE,
+  PLACEHOLDER,
+  TEST_ID,
+} from '../../../commons/constants';
 
 const SignInPage = () => {
   const {
-    emailError,
-    pwError,
-    handleEmailInput,
-    handlePasswordInput,
-    handleSubmit,
+    email,
+    password,
     isDisabled,
+    inputType,
+    icon,
+    onClick,
     navigateSignUp,
-  } = useAuthForm({ type: AuthForm.SIGNIN });
+    handleSubmit,
+  } = useSignIn();
 
-  const [pwType, setPwType] = useState('password');
-
-  function onClickPwIcon() {
-    setPwType(pwType === 'text' ? 'password' : 'text');
-  }
   return (
     <S.Container>
       <S.Title>Sign In</S.Title>
       <form onSubmit={handleSubmit}>
         <FormField
-          testId="email-input"
-          type="text"
-          placeholder="Enter your Email"
-          onChange={handleEmailInput}
-          errorMessage={emailError}
-        />
-
-        <FormField
-          testId="password-input"
-          type={pwType}
-          placeholder="Enter your Password"
-          onChange={handlePasswordInput}
-          errorMessage={pwError}
-          child={
-            <i
-              className={`bx ${
-                pwType === 'text' ? 'bx-show' : 'bx-hide'
-              } show-hide`}
-              onClick={onClickPwIcon}
-            />
-          }
+          testId={TEST_ID.EMAIL_INPUT}
+          type={INPUT_TYPE.TEXT}
+          placeholder={PLACEHOLDER.SIGNIN_EMAIL}
+          onChange={email.onChange}
+          errorMessage={email.error}
         />
         <FormField
-          testId="signin-button"
-          type="submit"
-          value="Sign in"
+          testId={TEST_ID.PASSWORD_INPUT}
+          type={inputType}
+          placeholder={PLACEHOLDER.SIGNIN_PW}
+          onChange={password.onChange}
+          errorMessage={password.error}
+          child={<i className={icon} onClick={onClick} />}
+        />
+        <FormField
+          testId={TEST_ID.SIGNIN_BUTTON}
+          type={INPUT_TYPE.SUBMIT}
+          value={BUTTON_NAME.SIGNIN}
           disabled={isDisabled}
         />
 
         <S.LinkBox>
-          Don't have an account?{' '}
+          Don't have an account?
           <S.Span onClick={navigateSignUp}>SignUp</S.Span>
         </S.LinkBox>
       </form>

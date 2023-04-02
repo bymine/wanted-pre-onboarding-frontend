@@ -1,14 +1,11 @@
 import { createContext, ReactElement, useReducer } from 'react';
+import { localTokenRepository } from '../..';
 
 type AuthType = {
   token: string;
 };
 
-type AuthStateType = { token: string };
-
-const initAuthState: AuthStateType = {
-  token: localStorage.getItem('token') ?? '',
-};
+type AuthStateType = { token: string | null };
 
 const REDUCER_ACTION_TYPE = {
   SIGNIN: 'SIGNIN',
@@ -17,7 +14,7 @@ const REDUCER_ACTION_TYPE = {
 
 type AuthReducerAction = {
   type: string;
-  payload: AuthType;
+  payload?: AuthType;
 };
 
 const reducer = (
@@ -28,19 +25,12 @@ const reducer = (
     case REDUCER_ACTION_TYPE.SIGNIN: {
       if (!action.payload)
         throw new Error('action payload missing in SIGNIN action');
-
       const { token } = action.payload;
-
       return { ...state, token: token };
     }
 
     case REDUCER_ACTION_TYPE.SIGNOUT: {
-      if (!action.payload)
-        throw new Error('action payload missing in SIGNOUT action');
-
-      const { token } = action.payload;
-
-      return { ...state, token: token };
+      return { ...state, token: null };
     }
 
     default:
@@ -48,8 +38,10 @@ const reducer = (
   }
 };
 
-const useAuthContext = (initAuthState: AuthStateType) => {
-  const [state, dispatch] = useReducer(reducer, initAuthState);
+const useAuthContext = () => {
+  const [state, dispatch] = useReducer(reducer, {
+    token: localTokenRepository.get(),
+  });
 
   const AUTH_REDUCER_ACTIONS = REDUCER_ACTION_TYPE;
 
@@ -63,7 +55,7 @@ const initAuthContextState: UseAuthContextType = {
     return;
   },
   AUTH_REDUCER_ACTIONS: REDUCER_ACTION_TYPE,
-  state: { token: '' },
+  state: { token: null },
 };
 
 export const AuthContext =
@@ -73,7 +65,7 @@ type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 export const AuthProvider = ({ children }: ChildrenType): ReactElement => {
   return (
-    <AuthContext.Provider value={useAuthContext(initAuthState)}>
+    <AuthContext.Provider value={useAuthContext()}>
       {children}
     </AuthContext.Provider>
   );

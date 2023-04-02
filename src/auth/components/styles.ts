@@ -20,13 +20,12 @@ export const FieldInput = styled.input`
   border: 1px solid #d1d1d1;
 
   ${(props) =>
-    props.isValid &&
+    props.name &&
     css`
       border-color: #d93025;
     `}
-
   ${(props) =>
-    props.button &&
+    props.type === 'submit' &&
     css`
       color: #fff;
       font-size: 16px;
@@ -35,13 +34,12 @@ export const FieldInput = styled.input`
       cursor: pointer;
       transition: all 0.3s ease;
     `}
-
-  ${(props) =>
+    ${(props) =>
     props.disabled &&
     css`
       background: #d1d1d1;
       cursor: unset;
-    `}
+    `};
 `;
 
 export const InputIcon = styled.i`

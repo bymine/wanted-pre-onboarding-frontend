@@ -3,6 +3,7 @@ import { useAuth } from '../../auth/hooks';
 import { deleteTodo, getTodo, postTodo, putTodo } from '../apis';
 import { TodoType } from '../contexts/TodoProvider';
 import useTodo from './useTodo';
+import { localTokenRepository } from '../..';
 
 function useTodoManager() {
   const [addTodo, setAddTodo] = useState('');
@@ -62,10 +63,9 @@ function useTodoManager() {
   }
 
   function signOut() {
-    localStorage.removeItem('token');
+    localTokenRepository.remove();
     authDisPatch({
       type: AUTH_REDUCER_ACTIONS.SIGNOUT,
-      payload: { token: '' },
     });
   }
 

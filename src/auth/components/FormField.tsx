@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 
-type FormFieldType = {
+type Props = {
   testId: string;
   type: string;
   placeholder?: string;
@@ -21,10 +21,11 @@ const FormField = ({
   child,
   value,
   disabled,
-}: FormFieldType) => {
-  const buttonProps = type === 'submit' ? 'button' : '';
+}: Props) => {
   const isFieldValid =
-    typeof errorMessage !== 'undefined' && errorMessage !== '' && 'invalid';
+    typeof errorMessage !== 'undefined' && errorMessage !== ''
+      ? 'invalid'
+      : undefined;
   const isErrorVisible =
     typeof errorMessage !== 'undefined' && errorMessage !== '';
 
@@ -32,8 +33,7 @@ const FormField = ({
     <S.Container>
       <S.FieldBox>
         <S.FieldInput
-          isValid={isFieldValid}
-          button={buttonProps}
+          name={isFieldValid}
           disabled={disabled}
           data-testid={testId}
           type={type}
@@ -45,8 +45,8 @@ const FormField = ({
       </S.FieldBox>
       {isErrorVisible && (
         <S.ErrorBox>
-          <S.ErrorIcon className="bx bx-error-circle error-icon"></S.ErrorIcon>
-          <S.ErrorSpan className="error-text">{errorMessage}</S.ErrorSpan>
+          <S.ErrorIcon className="bx bx-error-circle"></S.ErrorIcon>
+          <S.ErrorSpan>{errorMessage}</S.ErrorSpan>
         </S.ErrorBox>
       )}
     </S.Container>
