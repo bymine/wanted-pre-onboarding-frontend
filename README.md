@@ -1,73 +1,60 @@
-# 원티드 프리온보딩 프론트엔드 - 선발 과제
+# 원티드 프리온버딩 1주차 과제
 
-# :magnet: 목차
-
-1. [요구 사항](#요구-사항)
-2. [작동 화면](#작동-화면)
-3. [실행 방법](#실행-방법)
-4. [진행 기간](#진행-기간)
-5. [기술 스택](#기술-스택)
-6. [폴더 구조](#폴더-구조)
-7. [개선 사항](#개선-사항)
-
-<br/>
-<br/>
-
-# :clipboard: 요구 사항
+# 📋 요구 사항
 
 ## 1. 로그인 / 회원가입
 
 - Assignment 1
 
-  - [x] 회원가입과 로그인 페이지에 이메일과 비밀번호의 유효성 검사기능을 구현해주세요
-  - [x] 입력된 이메일과 비밀번호가 유효성 검사를 통과하지 못한다면 button에 disabled 속성을 부여해주세요
+  - 회원가입과 로그인 페이지에 이메일과 비밀번호의 유효성 검사기능을 구현해주세요
+  - 입력된 이메일과 비밀번호가 유효성 검사를 통과하지 못한다면 button에 disabled 속성을 부여해주세요
 
 - Assignment 2
 
-  - [x] 회원가입 페이지에서 버튼을 클릭 시 회원가입을 진행하고 회원가입이 정상적으로 완료되었을 시 /signin 경로로 이동해주세요
+  - 회원가입 페이지에서 버튼을 클릭 시 회원가입을 진행하고 회원가입이 정상적으로 완료되었을 시 /signin 경로로 이동해주세요
 
 - Assignment 3
 
-  - [x] 로그인 페이지에서 버튼을 클릭 시, 로그인을 진행하고 로그인이 정상적으로 완료되었을 시 /todo 경로로 이동해주세요
+  - 로그인 페이지에서 버튼을 클릭 시, 로그인을 진행하고 로그인이 정상적으로 완료되었을 시 /todo 경로로 이동해주세요
 
 - Assignment 4
 
-  - [x] 로그인 여부에 따른 리다이렉트 처리를 구현해주세요
+  - 로그인 여부에 따른 리다이렉트 처리를 구현해주세요
 
 ### 2. TODO LIST
 
 - Assignment 5
 
-  - [x] /todo경로에 접속하면 투두 리스트의 목록을 볼 수 있도록 해주세요
-  - [x] 목록에서는 TODO의 내용과 완료 여부가 표시되어야 합니다.
-  - [x] TODO의 완료 여부는 <input type="checkbox" />를 통해 표현해주세요
-  - [x] TODO는 <li> tag를 이용해 감싸주세요
+  - /todo경로에 접속하면 투두 리스트의 목록을 볼 수 있도록 해주세요
+  - 목록에서는 TODO의 내용과 완료 여부가 표시되어야 합니다.
+  - TODO의 완료 여부는 <input type="checkbox" />를 통해 표현해주세요
+  - TODO는 <li> tag를 이용해 감싸주세요
 
 - Assignment 6
 
-  - [x] 리스트 페이지에 새로운 TODO를 입력할 수 있는 input과 추가 button을 만들어주세요
-  - [x] 추가 button을 클릭하면 입력 input의 내용이 새로운 TODO로 추가되도록 해주세요
+  - 리스트 페이지에 새로운 TODO를 입력할 수 있는 input과 추가 button을 만들어주세요
+  - 추가 button을 클릭하면 입력 input의 내용이 새로운 TODO로 추가되도록 해주세요
 
 - Assignment 7
 
-  - [x] TODO의 체크박스를 통해 완료 여부를 수정할 수 있도록 해주세요
+  - TODO의 체크박스를 통해 완료 여부를 수정할 수 있도록 해주세요
 
 - Assignment 8
 
-  - [x] TODO 우측에 수정버튼과 삭제 버튼을 만들어주세요
+  - TODO 우측에 수정버튼과 삭제 버튼을 만들어주세요
 
 - Assignment 9
 
-  - [x] 투두 리스트의 삭제 기능을 구현해주세요
+  - 투두 리스트의 삭제 기능을 구현해주세요
 
 - Assignment 10
 
-  - [x] 투두 리스트의 수정 기능을 구현해주세요
+  - 투두 리스트의 수정 기능을 구현해주세요
 
 <br/>
 <br/>
 
-# :movie_camera: 작동 화면
+# 🎥 작동 화면
 
 - 로그인 화면과 회원가입 화면
 
@@ -88,7 +75,7 @@
 <br/>
 <br/>
 
-# 실행 방법
+# 🕹️ 실행 방법
 
 - 클라이언트 실행
 
@@ -96,6 +83,7 @@
 
   ```
   cd client
+  npm install
   npm start
   //http://localhost:3000
   ```
@@ -108,6 +96,7 @@
 
   ```
   cd server
+  npm install
   npm start
   //http://localhost:8000
   ```
@@ -115,16 +104,23 @@
   <br/>
   <br/>
 
-# :date: 진행 기간
+# 🔗 배포링크
+
+[링크](https://wanted-pre-onboarding-frontend-20ru3edjk-bymine.vercel.app/signin)
+
+  <br/>
+  <br/>
+
+# 📅 진행 기간
 
 2023.2.3 ~ 2023.2.11
 
-리팩토링 기간 2023.2.20 ~ 2023.3.1
+리팩토링 기간 2023.3.27 ~ 2023.4.2
 
 <br/>
 <br/>
 
-# :books: 기술 스택
+# 🛠️ 기술 스택
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
 <img src="https://img.shields.io/badge/TypeSCript-3178C6?style=for-the-badge&logo=TypeSCript&logoColor=black">
@@ -135,7 +131,7 @@
 <br/>
 <br/>
 
-# :open_file_folder: 폴더 구조
+# 📂 폴더 구조
 
 ```
 📦src
@@ -151,7 +147,10 @@
  ┃ ┣ 📂hooks
  ┃ ┃ ┣ 📜index.ts
  ┃ ┃ ┣ 📜useAuth.ts
- ┃ ┃ ┗ 📜useAuthForm.ts
+ ┃ ┃ ┣ 📜useInput.ts
+ ┃ ┃ ┣ 📜usePasswordIcon.ts
+ ┃ ┃ ┣ 📜useSignIn.ts
+ ┃ ┃ ┗ 📜useSignUp.ts
  ┃ ┗ 📂pages
  ┃ ┃ ┣ 📂SignInPage
  ┃ ┃ ┃ ┗ 📜SignInPage.tsx
@@ -165,8 +164,12 @@
  ┃ ┣ 📂components
  ┃ ┃ ┣ 📜index.ts
  ┃ ┃ ┗ 📜withAuth.tsx
- ┃ ┗ 📂globalstyles
+ ┃ ┣ 📂constants
+ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂globalstyles
  ┃ ┃ ┗ 📜GlobalStyles.ts
+ ┃ ┗ 📂repositorys
+ ┃ ┃ ┗ 📜LocalTokenRepository.ts
  ┣ 📂Todo
  ┃ ┣ 📂apis
  ┃ ┃ ┗ 📜index.ts
@@ -199,38 +202,30 @@
 <br/>
 <br/>
 
-# 개선 사항
+# 🏆 개선 사항
 
-## [타입스크립트 적용]
+## [문자열 상수화]
 
-자바스크립트로 작성된 코드를 타입스크립트로 변환
+하드코딩을 피하고 상수를 활용해 가독성을 높였습니다.
 
-타입스크립트 `any` 타입 없애기
+```ts
+// 에러메세지 상수화
 
-<br/>
-<br/>
+export const ERROR_MESSAGE = {
+  EMAIL_EMPTY_ERROR: 'Please enter a valid email',
+  EMAIL_NOT_EXIST_ERROR: 'User does not exist',
+  EMAIL_EXIST_ERROR: 'The same email already exists',
+  PW_EMPTY_ERROR: 'Please enter at least 8 characters',
+  PW_CONFIRM_ERROR: 'Please match password',
+  PW_MATCH_ERROR: 'Password error',
+} as const;
+```
 
-## [styled-components 적용]
-
-css 기반 스타일링을 styled-components 적용
-
-클래스 이름을 지정할 필요가 없어 코드가 간결하고 가독성이 높아지는 효과가 있습니다.
-
-<br/>
-<br/>
-
-## [기능에 따른 폴더 구조 변경]
-
-협업 시 작업자가 해당 기능의 폴더에서만 작업할 수 있어 파일 찾기가 수월하고,
-
-git 충돌이 줄어든다는 장점을 고려해 기능에 따른 폴더 구조로 변경 하였습니다.
-
-<br/>
 <br/>
 
 ## [custom hooks 사용]
 
-컴포넌트에서 사용하는 공통적인 로직을 분리해서 추상화하고 재사용하기 위해 사용하였습니다.
+컴포넌트에서 사용하는 공통적인 로직을 분리해 추상화하고 재사용하기 위해 사용하였습니다.
 
 아래와 같이 공통 로직을 추상화하는 훅을 만들어 사용했습니다.
 
@@ -238,6 +233,38 @@ git 충돌이 줄어든다는 장점을 고려해 기능에 따른 폴더 구조
 
 - `useTodo` : useContext hook를 사용하여 todo list를 전역적으로 관리하기 위한 로직
 
-- `useAuthForm` : 각 인증 관련 페이지에서 중복되는 form 관련 로직
+- `useInput` : input 값과 error 메시지를 관리하며, 입력값이 정규식에 맞는지 검증합니다.
+
+- `useSignIn`, `useSignUp` : 로그인, 회원가입 폼에서 사용하는 로직
 
 - `useTodoManager` : 투두 페이지에서 사용하는 로직
+
+- `usePasswordIcon` : 비밀번호 보기/숨기기 기능 로직
+
+<br/>
+
+## [의존성 주입]
+
+의존성 주입을 적용하여 모듈에서 직접적으로 의존성을 가지고 있지 않아 프로그램의 유연성을 높였습니다
+
+```ts
+interface LocalTokenInterface {
+  save(token: string): void;
+  get(): string | null;
+  remove(): void;
+}
+
+export class LocalTokenRepository implements LocalTokenInterface {
+  token_key: string;
+
+  constructor() {
+    this.token_key = process.env.REACT_APP_TOKEN_KEY ?? '';
+  }
+
+  save = (token: string) => localStorage.setItem(this.token_key, token);
+
+  get = () => localStorage.getItem(this.token_key);
+
+  remove = () => localStorage.removeItem(this.token_key);
+}
+```
